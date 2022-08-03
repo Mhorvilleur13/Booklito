@@ -7,7 +7,7 @@ import '@react-pdf-viewer/core/lib/styles/index.css';
 const Booklet = ({pdfFiles}) => {
 return (
     <div>
-    <h5>View PDF</h5>
+    <h5>View PDF Below Here</h5>
     <div className="row">
       {pdfFiles.length >= 1 && (
         pdfFiles.map(pdfFile => {
