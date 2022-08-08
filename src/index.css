@@ -11,3 +11,32 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.booklet-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  padding: 40px 10px;
+}
+.booklet {
+  height: 80vh;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+.page {
+  height: 600px;
+}
+.prev-btn {
+  height: 30px;
+  width: 30px;
+}
+
+.next-btn {
+  height: 30px;
+  width: 30px;
+}
+
+.carousel-control-prev, .carousel-control-next, .carousel-indicators {
+  filter: invert(100%);
+}

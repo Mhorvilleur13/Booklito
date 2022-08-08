@@ -1,20 +1,20 @@
 import {useState} from 'react';
 import {useRecoilState, atom} from 'recoil';
-import {pdfFilesState as pdfFilesAtom} from "./atom";
+import {pdfFilesState as pdfFilesAtom, currentPageState as currentPageAtom} from "./atom";
 import { Worker } from '@react-pdf-viewer/core';
 import { Viewer } from '@react-pdf-viewer/core';
 // Import the styles
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import  Booklet  from "./Components/Booklet/Booklet.js";
+import leftArrow from "./Assets/images/left-arrow.png";
 
 function App() {
   const [pdfFiles, setPdfFiles] = useRecoilState(pdfFilesAtom);
   const [pdfError, setPdfError] = useState('');
-
+  const [currentPage, setCurrentPage] = useState(0);
  const allowedFiles = ['application/pdf'];
   const handleFile = (e) => {
     let selectedFile = e.target.files[0];
-    // console.log(selectedFile.type);
     if(selectedFile){
       if(selectedFile && allowedFiles.includes(selectedFile.type)){
        let reader = new FileReader();
@@ -23,7 +23,7 @@ function App() {
          setPdfError('');
          const newPdfFiles = [...pdfFiles]
          newPdfFiles.push(e.target.result);
-         console.log(newPdfFiles)
+         console.log(newPdfFiles);
          setPdfFiles(newPdfFiles);
          console.log(`pdfFiles: ${pdfFiles}`)
        }
@@ -33,6 +33,29 @@ function App() {
 
     } else {
       console.log('please select file')
+    }
+  }  
+
+  const moveRight = (e) => {
+    console.log(currentPage);
+    let newPage;
+    if(currentPage < pdfFiles.length-1) {
+    newPage = currentPage + 1;
+    console.log(newPage)
+    setCurrentPage(newPage);
+    } else {
+      return;
+    }
+  }
+  const moveLeft = (e) => {
+    console.log(currentPage);
+    let newPage;
+    if(currentPage > 0) {
+    newPage = currentPage - 1;
+    console.log(newPage)
+    setCurrentPage(newPage);
+    } else {
+      return;
     }
   }
   return (
@@ -45,9 +68,9 @@ function App() {
            <input type="file" className="form-control" onChange={handleFile}></input>
            {pdfError&&<span className='text-danger'>{pdfError}</span>}
          </form>
-             <Booklet pdfFiles={pdfFiles}/>
          </div>
          </div>
+         <Booklet pdfFiles={pdfFiles} currentPage={currentPage} moveRight={moveRight} moveLeft={moveLeft}/>
     </div>
   );
 }
