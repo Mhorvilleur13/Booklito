@@ -13,19 +13,32 @@ code {
 }
 
 .booklet-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;  
-  padding: 40px 10px;
-}
-.booklet {
-  height: 80vh;
   /* display: flex;
   justify-content: center;
-  align-items: center; */
+  align-items: center;   */
+  padding: 40px 10px;
+}
+
+.cover {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  flex-direction: column;
+  height: 600px;
+  border: 1px solid black;
+  border-radius: 20px;
+}
+
+
+.cover-logo {
+  height: 200px;
+  width: 300px;
+  padding-bottom: 20px;
 }
 .page {
   height: 600px;
+  border: 1px solid black;
+  border-radius: 20px;
 }
 .prev-btn {
   height: 30px;
