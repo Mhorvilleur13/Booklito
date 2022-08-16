@@ -5,8 +5,6 @@ import { Worker } from "@react-pdf-viewer/core";
 import { Viewer } from "@react-pdf-viewer/core";
 // Import the styles
 import "@react-pdf-viewer/core/lib/styles/index.css";
-import leftArrow from "../../Assets/images/left-arrow.png";
-import rightArrow from "../../Assets/images/right-arrow.png";
 import ELFlogo from "../../Assets/images/ELP_Logo_TaglineStacked_Blue.png";
 import "../../index.css";
 
