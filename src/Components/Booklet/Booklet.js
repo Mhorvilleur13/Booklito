@@ -5,7 +5,7 @@ import "@react-pdf-viewer/core/lib/styles/index.css";
 import ELFlogo from "../../Assets/images/ELP_Logo_TaglineStacked_Blue.png";
 import "../../index.css";
 
-const Booklet = ({ allPdfFiles, booklets, currentPdfFiles }) => {
+const Booklet = ({ booklets }) => {
   return (
     <div className="booklet-section row">
       <div className="col-md-8 col-sm-9 col-lg-6 col-xl-5 mx-auto">
