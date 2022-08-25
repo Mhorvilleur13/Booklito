@@ -1,22 +1,48 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRecoilState, atom, useRecoilValue } from "recoil";
 import {
   allPdfFilesState as allPdfFilesAtom,
   bookletsState as bookletsAtom,
   pdfFilesState as pdfFilesAtom,
+  titleState as titleAtom,
+  teacherState as teacherAtom,
 } from "./atom";
 // Import the styles
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import Booklet from "./Components/Booklet/Booklet.js";
 import Form from "./Components/Form/Form";
 import { Routes, Route, Link } from "react-router-dom";
+import { db } from "./firebase-config";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 
 function App() {
+  const bookletsCollectionRef = collection(db, "Booklet");
   const [allPdfFiles, setAllPdfFiles] = useRecoilState(allPdfFilesAtom);
   const [currentPdfFiles, setCurrentPdfFiles] = useRecoilState(pdfFilesAtom);
   const [pdfError, setPdfError] = useState("");
   const [booklets, setBooklets] = useRecoilState(bookletsAtom);
+  const [title, setTitle] = useRecoilState(titleAtom);
+  const [teacher, setTeacher] = useRecoilState(teacherAtom);
   const allowedFiles = ["application/pdf"];
+
+  useEffect(() => {
+    const getBookletsDb = async () => {
+      const data = await getDocs(bookletsCollectionRef);
+      console.log(data);
+      setBooklets(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+
+    getBookletsDb();
+  }, []);
+
+  const createBookletDb = async () => {
+    await addDoc(bookletsCollectionRef, {
+      title: title,
+      teacher: teacher,
+      files: currentPdfFiles,
+    });
+  };
+
   const handleFile = (e) => {
     let selectedFile = e.target.files[0];
     if (selectedFile) {
@@ -64,7 +90,13 @@ function App() {
         <Routes>
           <Route
             path="/form"
-            element={<Form handleFile={handleFile} pdfError={pdfError} />}
+            element={
+              <Form
+                handleFile={handleFile}
+                pdfError={pdfError}
+                createBookletDb={createBookletDb}
+              />
+            }
           />
           <Route
             path="/booklets"

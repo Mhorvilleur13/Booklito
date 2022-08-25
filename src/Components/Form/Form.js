@@ -5,15 +5,17 @@ import {
   allPdfFilesState as allPdfFilesAtom,
   bookletsState as bookletsAtom,
   pdfFilesState as pdfFilesAtom,
+  titleState as titleAtom,
+  teacherState as teacherAtom,
 } from "../../atom";
 import { useForm } from "react-hook-form";
 
-const Form = ({ handleFile, pdfError }) => {
+const Form = ({ handleFile, pdfError, createBookletDb }) => {
   const [allPdfFiles, setAllPdfFiles] = useRecoilState(allPdfFilesAtom);
   const [currentPdfFiles, setCurrentPdfFiles] = useRecoilState(pdfFilesAtom);
   const [booklets, setBooklets] = useRecoilState(bookletsAtom);
-  const [title, setTitle] = useState("");
-  const [teacher, setTeacher] = useState("");
+  const [title, setTitle] = useRecoilState(titleAtom);
+  const [teacher, setTeacher] = useRecoilState(teacherAtom);
   const { handleSubmit } = useForm();
   const onSubmit = (data, e) => {
     const newBooklet = {
@@ -27,6 +29,7 @@ const Form = ({ handleFile, pdfError }) => {
     setCurrentPdfFiles([]);
     e.target.reset();
   };
+
   return (
     <div className="row">
       <div className="col-6 text-center mx-auto mt-4 border">
@@ -62,7 +65,11 @@ const Form = ({ handleFile, pdfError }) => {
             <h6>Number of Files Chosen: {currentPdfFiles.length}</h6>
           </div>
           <div className="mt-3">
-            <button type="submit" className="btn btn-primary">
+            <button
+              onClick={createBookletDb}
+              type="submit"
+              className="btn btn-primary"
+            >
               Create Booklet
             </button>
           </div>

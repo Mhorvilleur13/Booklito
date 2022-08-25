@@ -14,6 +14,14 @@ export const pdfFilesState = atom({
   default: [],
 });
 
+export const titleState = atom({
+  key: "title-state",
+  default: " ",
+});
+export const teacherState = atom({
+  key: "teacher-state",
+  default: " ",
+});
 export const currentPageState = atom({
   key: "current-page",
   default: [],
