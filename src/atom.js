@@ -22,6 +22,17 @@ export const teacherState = atom({
   key: "teacher-state",
   default: " ",
 });
+
+export const newTitleState = atom({
+  key: "new-title-state",
+  default: " ",
+});
+
+export const newTeacherState = atom({
+  key: "new-teacher-state",
+  default: " ",
+});
+
 export const currentPageState = atom({
   key: "current-page",
   default: [],
