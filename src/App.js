@@ -6,6 +6,8 @@ import {
   pdfFilesState as pdfFilesAtom,
   titleState as titleAtom,
   teacherState as teacherAtom,
+  newTeacherState as newTeacherAtom,
+  newTitleState as newTitleAtom,
 } from "./atom";
 // Import the styles
 import "@react-pdf-viewer/core/lib/styles/index.css";
@@ -13,7 +15,13 @@ import Booklet from "./Components/Booklet/Booklet.js";
 import Form from "./Components/Form/Form";
 import { Routes, Route, Link } from "react-router-dom";
 import { db } from "./firebase-config";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 
 function App() {
   const bookletsCollectionRef = collection(db, "Booklet");
@@ -23,6 +31,8 @@ function App() {
   const [booklets, setBooklets] = useRecoilState(bookletsAtom);
   const [title, setTitle] = useRecoilState(titleAtom);
   const [teacher, setTeacher] = useRecoilState(teacherAtom);
+  const [newTitle, setNewTitle] = useRecoilState(newTitleAtom);
+  const [newTeacher, setNewTeacher] = useRecoilState(newTeacherAtom);
   const allowedFiles = ["application/pdf"];
 
   useEffect(() => {
@@ -41,6 +51,13 @@ function App() {
       teacher: teacher,
       files: currentPdfFiles,
     });
+  };
+
+  const editBooklet = async (id, title, teacher) => {
+    const bookletDoc = doc(db, "Booklet", id);
+    const newFields = { title: newTitle, teacher: newTeacher };
+    await updateDoc(bookletDoc, newFields);
+    console.log("it worked");
   };
 
   const handleFile = (e) => {
@@ -105,6 +122,7 @@ function App() {
                 allPdfFiles={allPdfFiles}
                 booklets={booklets}
                 currentPdfFiles={currentPdfFiles}
+                editBooklet={editBooklet}
               />
             }
           />
