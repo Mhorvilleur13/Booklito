@@ -38,7 +38,7 @@ const Booklet = ({ booklets, editBooklet }) => {
                       <h1>{booklet.title}</h1>
                       <br></br>
                       <h3>By</h3>
-                      <h4>{booklet.teacher}</h4>
+                      <h5>{booklet.teacher}</h5>
                     </div>
                   </Carousel.Item>
                   {booklet.files.map((pdfFile, index) => {
