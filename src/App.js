@@ -21,6 +21,7 @@ import {
   addDoc,
   updateDoc,
   doc,
+  deleteDoc,
 } from "firebase/firestore";
 
 function App() {
@@ -58,6 +59,11 @@ function App() {
     const newFields = { title: newTitle, teacher: newTeacher };
     await updateDoc(bookletDoc, newFields);
     console.log("it worked");
+  };
+
+  const deleteBooklet = async (id) => {
+    const bookletDoc = doc(db, "Booklet", id);
+    await deleteDoc(bookletDoc);
   };
 
   const handleFile = (e) => {
@@ -123,6 +129,7 @@ function App() {
                 booklets={booklets}
                 currentPdfFiles={currentPdfFiles}
                 editBooklet={editBooklet}
+                deleteBooklet={deleteBooklet}
               />
             }
           />
