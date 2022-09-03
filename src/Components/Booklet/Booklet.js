@@ -16,7 +16,7 @@ import {
   newTitleState as newTitleAtom,
 } from "../../atom";
 
-const Booklet = ({ booklets, editBooklet }) => {
+const Booklet = ({ booklets, editBooklet, deleteBooklet }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const { handleSubmit } = useForm();
   const [newTitle, setNewTitle] = useRecoilState(newTitleAtom);
@@ -51,6 +51,12 @@ const Booklet = ({ booklets, editBooklet }) => {
                         <div className="mt-1">
                           <button onClick={() => setIsEditOpen(true)}>
                             Edit Booklet
+                          </button>
+                          <button
+                            className="ml-1"
+                            onClick={() => deleteBooklet(booklet.id)}
+                          >
+                            Delete Booklet
                           </button>
                         </div>
                         {isEditOpen && (
