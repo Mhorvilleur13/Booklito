@@ -32,13 +32,13 @@ const Form = ({ handleFile, pdfError, createBookletDb }) => {
 
   return (
     <div className="row">
-      <div className="col-6 text-center mx-auto mt-4 border">
+      <div className="col-6 text-center mx-auto mt-5 border">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <label>
+          <label className="mt-3">
             <h5>Upload PDF</h5>
           </label>
           <br></br>
-          <div className=" text-secondary">
+          <div className="text-secondary">
             <h5>Title</h5>
             <input
               type="text"
@@ -46,7 +46,7 @@ const Form = ({ handleFile, pdfError, createBookletDb }) => {
               onChange={(e) => setTitle(e.target.value)}
             ></input>
           </div>
-          <div className=" text-secondary mt-3">
+          <div className="text-secondary mt-3">
             <h5>Teacher Name</h5>
             <input
               type="text"

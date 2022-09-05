@@ -26,19 +26,19 @@ const Booklet = ({ booklets, editBooklet, deleteBooklet }) => {
   };
   return (
     <div className="booklet-section row">
-      <div className="col-md-8 col-sm-9 col-lg-6 col-xl-5 mx-auto">
+      <div className="col-md-8 col-sm-10 col-lg-7 col-xl-5 mx-auto">
         {booklets.length >= 1
           ? booklets.map((booklet) => {
               return (
-                <Carousel interval={null} className="mt-4">
+                <Carousel interval={null} className="mt-5">
                   <Carousel.Item>
                     <h4 className="text-center">Cover</h4>
                     <div className="cover">
                       <img src={ELFlogo} className="cover-logo"></img>
                       <h1>{booklet.title}</h1>
                       <br></br>
-                      <h3>By</h3>
-                      <h5>{booklet.teacher}</h5>
+                      <h5>By</h5>
+                      <h3>{booklet.teacher}</h3>
                     </div>
                   </Carousel.Item>
                   {booklet.files.map((pdfFile, index) => {
@@ -48,12 +48,15 @@ const Booklet = ({ booklets, editBooklet, deleteBooklet }) => {
                           Page {index + 1} / {booklet.files.length}
                         </h4>
                         <embed src={pdfFile} className="w-100 page" />
-                        <div className="mt-1">
-                          <button onClick={() => setIsEditOpen(true)}>
+                        <div className="mr-2 text-center">
+                          <button
+                            className="btn btn-outline-primary btn-sm"
+                            onClick={() => setIsEditOpen(true)}
+                          >
                             Edit Booklet
                           </button>
                           <button
-                            className="ml-1"
+                            className="btn btn-outline-danger btn-sm"
                             onClick={() => deleteBooklet(booklet.id)}
                           >
                             Delete Booklet

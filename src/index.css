@@ -53,3 +53,7 @@ code {
 .carousel-control-prev, .carousel-control-next, .carousel-indicators {
   filter: invert(100%);
 }
+
+.carousel-indicators {
+  visibility: hidden;
+}
