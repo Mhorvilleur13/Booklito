@@ -22,6 +22,7 @@ import {
   updateDoc,
   doc,
   deleteDoc,
+  onSnapshot,
 } from "firebase/firestore";
 
 function App() {
@@ -36,14 +37,23 @@ function App() {
   const [newTeacher, setNewTeacher] = useRecoilState(newTeacherAtom);
   const allowedFiles = ["application/pdf"];
 
-  useEffect(() => {
-    const getBookletsDb = async () => {
-      const data = await getDocs(bookletsCollectionRef);
-      console.log(data);
-      setBooklets(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
+  // useEffect(() => {
+  //   const getBookletsDb = async () => {
+  //     const data = await getDocs(bookletsCollectionRef);
+  //     console.log(data);
+  //     setBooklets(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  //   };
 
-    getBookletsDb();
+  //   getBookletsDb();
+  // }, []);
+
+  console.log(booklets);
+
+  useEffect(() => {
+    const unsub = onSnapshot(bookletsCollectionRef, (snapshot) => {
+      setBooklets(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    });
+    return unsub;
   }, []);
 
   const createBookletDb = async () => {
