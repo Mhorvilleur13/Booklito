@@ -33,8 +33,6 @@ function App() {
   const [booklets, setBooklets] = useRecoilState(bookletsAtom);
   const [title, setTitle] = useRecoilState(titleAtom);
   const [teacher, setTeacher] = useRecoilState(teacherAtom);
-  const [newTitle, setNewTitle] = useRecoilState(newTitleAtom);
-  const [newTeacher, setNewTeacher] = useRecoilState(newTeacherAtom);
   const allowedFiles = ["application/pdf"];
 
   // useEffect(() => {
@@ -64,7 +62,7 @@ function App() {
     });
   };
 
-  const editBooklet = async (id, title, teacher) => {
+  const editBooklet = async (id, newTitle, newTeacher) => {
     const bookletDoc = doc(db, "Booklet", id);
     const newFields = { title: newTitle, teacher: newTeacher };
     await updateDoc(bookletDoc, newFields);

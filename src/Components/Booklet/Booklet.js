@@ -35,10 +35,10 @@ const Booklet = ({ booklets, editBooklet, deleteBooklet }) => {
                     <h4 className="text-center">Cover</h4>
                     <div className="cover">
                       <img src={ELFlogo} className="cover-logo"></img>
-                      <h1>{booklet.title}</h1>
+                      <h1 className="text-secondary">{booklet.title}</h1>
                       <br></br>
                       <h5>By</h5>
-                      <h3>{booklet.teacher}</h3>
+                      <h3 className="text-secondary">{booklet.teacher}</h3>
                     </div>
                   </Carousel.Item>
                   {booklet.files.map((pdfFile, index) => {
@@ -114,8 +114,8 @@ const Booklet = ({ booklets, editBooklet, deleteBooklet }) => {
                                             onClick={() => {
                                               editBooklet(
                                                 booklet.id,
-                                                booklet.title,
-                                                booklet.teacher
+                                                newTitle,
+                                                newTeacher
                                               );
                                               setIsEditOpen(false);
                                             }}
