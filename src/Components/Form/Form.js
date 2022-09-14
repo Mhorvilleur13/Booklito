@@ -26,6 +26,7 @@ const Form = ({ handleFile, pdfError, createBookletDb }) => {
     const newBooklets = [...booklets];
     newBooklets.push(newBooklet);
     setBooklets(newBooklets);
+    createBookletDb();
     setCurrentPdfFiles([]);
     e.target.reset();
   };
@@ -65,11 +66,7 @@ const Form = ({ handleFile, pdfError, createBookletDb }) => {
             <h6>Number of Files Chosen: {currentPdfFiles.length}</h6>
           </div>
           <div className="mt-3">
-            <button
-              onClick={createBookletDb}
-              type="submit"
-              className="btn btn-primary"
-            >
+            <button type="submit" className="btn btn-primary">
               Create Booklet
             </button>
           </div>
