@@ -37,3 +37,23 @@ export const currentPageState = atom({
   key: "current-page",
   default: [],
 });
+
+export const registerEmailState = atom({
+  key: "register-email",
+  default: " ",
+});
+
+export const registerPasswordState = atom({
+  key: "register-password",
+  default: "",
+});
+
+export const loginEmailState = atom({
+  key: "login-email",
+  default: " ",
+});
+
+export const loginPasswordState = atom({
+  key: "login-password",
+  default: " ",
+});

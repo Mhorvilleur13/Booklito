@@ -8,13 +8,18 @@ import {
   teacherState as teacherAtom,
   newTeacherState as newTeacherAtom,
   newTitleState as newTitleAtom,
+  registerEmailState as registerEmailAtom,
+  registerPasswordState as registerPasswordAtom,
+  loginEmailState as loginEmailAtom,
+  loginPasswordState as loginPasswordAtom,
 } from "./atom";
 // Import the styles
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import Booklet from "./Components/Booklet/Booklet.js";
 import Form from "./Components/Form/Form";
+import Login from "./Components/login/login";
 import { Routes, Route, Link } from "react-router-dom";
-import { db } from "./firebase-config";
+import { db, auth } from "./firebase-config";
 import {
   collection,
   getDocs,
@@ -24,6 +29,7 @@ import {
   deleteDoc,
   onSnapshot,
 } from "firebase/firestore";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 function App() {
   const bookletsCollectionRef = collection(db, "Booklet");
@@ -33,6 +39,11 @@ function App() {
   const [booklets, setBooklets] = useRecoilState(bookletsAtom);
   const [title, setTitle] = useRecoilState(titleAtom);
   const [teacher, setTeacher] = useRecoilState(teacherAtom);
+  const [registerEmail, setRegisterEmail] = useRecoilState(registerEmailAtom);
+  const [registerPassword, setRegisterPassword] =
+    useRecoilState(registerPasswordAtom);
+  const [loginEmail, setLoginEmail] = useRecoilState(loginEmailAtom);
+  const [loginPassword, setLoginPassword] = useRecoilState(loginPasswordAtom);
   const allowedFiles = ["application/pdf"];
 
   // useEffect(() => {
@@ -45,7 +56,22 @@ function App() {
   //   getBookletsDb();
   // }, []);
 
-  console.log(booklets);
+  const register = async () => {
+    try {
+      const user = await createUserWithEmailAndPassword(
+        auth,
+        registerEmail,
+        registerPassword
+      );
+      console.log(user);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const login = async () => {};
+
+  const logout = async () => {};
 
   useEffect(() => {
     const unsub = onSnapshot(bookletsCollectionRef, (snapshot) => {
@@ -116,6 +142,11 @@ function App() {
             About
           </Link>
         </div>
+        <div className="col text-center">
+          <Link to="/login" className="btn btn-primary">
+            Login
+          </Link>
+        </div>
       </div>
       <div className="row">
         <Routes>
@@ -141,6 +172,7 @@ function App() {
               />
             }
           />
+          <Route path="/login" element={<Login register={register} />} />
         </Routes>
       </div>
     </div>
