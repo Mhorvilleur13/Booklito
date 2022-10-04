@@ -12,6 +12,7 @@ import {
   registerPasswordState as registerPasswordAtom,
   loginEmailState as loginEmailAtom,
   loginPasswordState as loginPasswordAtom,
+  userState as userAtom,
 } from "./atom";
 // Import the styles
 import "@react-pdf-viewer/core/lib/styles/index.css";
@@ -29,7 +30,12 @@ import {
   deleteDoc,
   onSnapshot,
 } from "firebase/firestore";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 
 function App() {
   const bookletsCollectionRef = collection(db, "Booklet");
@@ -45,16 +51,14 @@ function App() {
   const [loginEmail, setLoginEmail] = useRecoilState(loginEmailAtom);
   const [loginPassword, setLoginPassword] = useRecoilState(loginPasswordAtom);
   const allowedFiles = ["application/pdf"];
+  const [user, setUser] = useState({});
 
-  // useEffect(() => {
-  //   const getBookletsDb = async () => {
-  //     const data = await getDocs(bookletsCollectionRef);
-  //     console.log(data);
-  //     setBooklets(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  //   };
-
-  //   getBookletsDb();
-  // }, []);
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      console.log(user.email);
+    });
+  }, []);
 
   const register = async () => {
     try {
@@ -69,9 +73,22 @@ function App() {
     }
   };
 
-  const login = async () => {};
+  const login = async () => {
+    try {
+      const user = await signInWithEmailAndPassword(
+        auth,
+        loginEmail,
+        loginPassword
+      );
+      console.log(user);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
-  const logout = async () => {};
+  const logout = async () => {
+    await signOut(auth);
+  };
 
   useEffect(() => {
     const unsub = onSnapshot(bookletsCollectionRef, (snapshot) => {
@@ -124,6 +141,15 @@ function App() {
       console.log("please select file");
     }
   };
+  // useEffect(() => {
+  //   const getBookletsDb = async () => {
+  //     const data = await getDocs(bookletsCollectionRef);
+  //     console.log(data);
+  //     setBooklets(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  //   };
+
+  //   getBookletsDb();
+  // }, []);
   return (
     <div className="mt-4 container page-container">
       <div className="row">
@@ -172,7 +198,17 @@ function App() {
               />
             }
           />
-          <Route path="/login" element={<Login register={register} />} />
+          <Route
+            path="/login"
+            element={
+              <Login
+                register={register}
+                user={user}
+                logout={logout}
+                login={login}
+              />
+            }
+          />
         </Routes>
       </div>
     </div>
