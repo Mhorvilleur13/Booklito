@@ -58,7 +58,10 @@ code {
   visibility: hidden;
 }
 
-
+.login-page {
+  display: flex; 
+  flex-direction: column;
+}
 .login {
   display: flex;
   justify-content: center;

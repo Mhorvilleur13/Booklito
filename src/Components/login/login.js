@@ -19,35 +19,41 @@ const Login = ({ register, logout, user, login }) => {
   const [loginPassword, setLoginPassword] = useRecoilState(loginPasswordAtom);
   const { currentUser } = useContext(AuthContext);
   return (
-    <div className="row">
-      <div className="login mt-5 ">
-        <h3>Register User</h3>
+    <div className="row login-page">
+      <div className="login col-5 col-sm-8 col-md-6 col-lg-4 mt-5 mx-auto border">
+        <h3 className="mt-3">Register User</h3>
         <input
           placeholder="Email..."
           onChange={(event) => setRegisterEmail(event.target.value)}
         />
         <input
+          className="mt-3"
           placeholder="Password..."
           onChange={(event) => setRegisterPassword(event.target.value)}
         />
-        <button onClick={register}>Create User</button>
+        <button className="mt-3 mb-2 btn btn-primary" onClick={register}>
+          Create User
+        </button>
       </div>
-      <div className="login mt-5 ">
-        <h3>Login</h3>
+      <div className="login col-5  col-sm-8 col-md-6 col-lg-4 mx-auto mt-5 border ">
+        <h3 className="mt-3">Login</h3>
         <input
           placeholder="Email..."
           onChange={(event) => setLoginEmail(event.target.value)}
         />
         <input
+          className="mt-3"
           placeholder="Password..."
           onChange={(event) => setLoginPassword(event.target.value)}
         />
-        <button onClick={login}>Login</button>
+        <button className="mt-3 mb-2 btn btn-primary" onClick={login}>
+          Login
+        </button>
       </div>
       <div className="login mt-4">
         <h4>User logged in:</h4>
         {currentUser?.email}
-        <button className="mt-4" onClick={logout}>
+        <button className="mt-4 mb-4" onClick={logout}>
           Sign out
         </button>
       </div>
