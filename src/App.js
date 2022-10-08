@@ -36,6 +36,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
+import { AuthProvider } from "./Auth";
+import PrivateRoute from "./PrivateRoute";
 
 function App() {
   const bookletsCollectionRef = collection(db, "Booklet");
@@ -52,13 +54,14 @@ function App() {
   const [loginPassword, setLoginPassword] = useRecoilState(loginPasswordAtom);
   const allowedFiles = ["application/pdf"];
   const [user, setUser] = useState({});
+  const [isAuth, setIsAuth] = useState(true);
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      console.log(user.email);
-    });
-  }, []);
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (currentUser) => {
+  //     setUser(currentUser);
+  //     console.log(user.email);
+  //   });
+  // }, []);
 
   const register = async () => {
     try {
@@ -169,47 +172,60 @@ function App() {
           </Link>
         </div>
         <div className="col text-center">
-          <Link to="/login" className="btn btn-primary">
+          <Link to="/" className="btn btn-primary">
             Login
           </Link>
         </div>
       </div>
       <div className="row">
-        <Routes>
-          <Route
-            path="/form"
-            element={
-              <Form
-                handleFile={handleFile}
-                pdfError={pdfError}
-                createBookletDb={createBookletDb}
+        <AuthProvider>
+          <Routes>
+            <Route
+              path="/form"
+              element={
+                <Form
+                  handleFile={handleFile}
+                  pdfError={pdfError}
+                  createBookletDb={createBookletDb}
+                />
+              }
+            />
+            <Route
+              exact
+              path="/booklets"
+              isAuth={isAuth}
+              user={user}
+              component={<PrivateRoute />}
+            >
+              <Route
+                exact
+                path="/booklets"
+                element={
+                  <PrivateRoute isAuth={isAuth}>
+                    <Booklet
+                      allPdfFiles={allPdfFiles}
+                      booklets={booklets}
+                      currentPdfFiles={currentPdfFiles}
+                      editBooklet={editBooklet}
+                      deleteBooklet={editBooklet}
+                    />
+                  </PrivateRoute>
+                }
               />
-            }
-          />
-          <Route
-            path="/booklets"
-            element={
-              <Booklet
-                allPdfFiles={allPdfFiles}
-                booklets={booklets}
-                currentPdfFiles={currentPdfFiles}
-                editBooklet={editBooklet}
-                deleteBooklet={deleteBooklet}
-              />
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <Login
-                register={register}
-                user={user}
-                logout={logout}
-                login={login}
-              />
-            }
-          />
-        </Routes>
+            </Route>
+            <Route
+              path="/"
+              element={
+                <Login
+                  register={register}
+                  user={user}
+                  logout={logout}
+                  login={login}
+                />
+              }
+            />
+          </Routes>
+        </AuthProvider>
       </div>
     </div>
   );
