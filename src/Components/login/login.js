@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useRecoilState, atom, useRecoilValue } from "recoil";
 import "../../index.css";
 import {
@@ -9,6 +9,7 @@ import {
   userState as userAtom,
 } from "../../atom";
 import { auth } from "../../firebase-config";
+import { AuthContext } from "../../Auth";
 
 const Login = ({ register, logout, user, login }) => {
   const [registerEmail, setRegisterEmail] = useRecoilState(registerEmailAtom);
@@ -16,7 +17,7 @@ const Login = ({ register, logout, user, login }) => {
     useRecoilState(registerPasswordAtom);
   const [loginEmail, setLoginEmail] = useRecoilState(loginEmailAtom);
   const [loginPassword, setLoginPassword] = useRecoilState(loginPasswordAtom);
-  //const user = useRecoilValue(userAtom);
+  const { currentUser } = useContext(AuthContext);
   return (
     <div className="row">
       <div className="login mt-5 ">
@@ -45,7 +46,7 @@ const Login = ({ register, logout, user, login }) => {
       </div>
       <div className="login mt-4">
         <h4>User logged in:</h4>
-        {user?.email}
+        {currentUser?.email}
         <button className="mt-4" onClick={logout}>
           Sign out
         </button>
