@@ -10,13 +10,15 @@ import {
 } from "../../atom";
 import { useForm } from "react-hook-form";
 
-const Form = ({ handleFile, pdfError, createBookletDb }) => {
+const Form = ({ handleFile, createBookletDb }) => {
   const [allPdfFiles, setAllPdfFiles] = useRecoilState(allPdfFilesAtom);
   const [currentPdfFiles, setCurrentPdfFiles] = useRecoilState(pdfFilesAtom);
   const [booklets, setBooklets] = useRecoilState(bookletsAtom);
   const [title, setTitle] = useRecoilState(titleAtom);
   const [teacher, setTeacher] = useRecoilState(teacherAtom);
   const { handleSubmit } = useForm();
+  const [pdfError, setPdfError] = useState("");
+
   const onSubmit = (data, e) => {
     const newBooklet = {
       title: title,
@@ -25,8 +27,12 @@ const Form = ({ handleFile, pdfError, createBookletDb }) => {
     };
     const newBooklets = [...booklets];
     newBooklets.push(newBooklet);
+    if (currentPdfFiles.length == 0) {
+      return setPdfError("PDF failed to load");
+    }
     setBooklets(newBooklets);
     createBookletDb();
+
     setCurrentPdfFiles([]);
     e.target.reset();
   };
