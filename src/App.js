@@ -13,6 +13,7 @@ import {
   loginEmailState as loginEmailAtom,
   loginPasswordState as loginPasswordAtom,
   userEmailState as userEmailAtom,
+  confirmationPasswordState as confirmationPasswordAtom,
 } from "./atom";
 // Import the styles
 import "@react-pdf-viewer/core/lib/styles/index.css";
@@ -57,9 +58,17 @@ function App() {
   const allowedFiles = ["application/pdf"];
   const [isAuth, setIsAuth] = useState(true);
   const [userEmail, setUserEmail] = useRecoilState(userEmailAtom);
+  const [confirmPassword, setConfirmPassword] = useRecoilState(
+    confirmationPasswordAtom
+  );
+  const [passwordError, setPasswordError] = useState("");
 
   const register = async () => {
+    if (confirmPassword !== registerPassword) {
+      return setPasswordError("Passwords don't match");
+    }
     try {
+      setPasswordError("");
       const user = await createUserWithEmailAndPassword(
         auth,
         registerEmail,
@@ -224,7 +233,12 @@ function App() {
             <Route
               path="/"
               element={
-                <Login register={register} logout={logout} login={login} />
+                <Login
+                  passwordError={passwordError}
+                  register={register}
+                  logout={logout}
+                  login={login}
+                />
               }
             />
           </Routes>
