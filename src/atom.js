@@ -48,6 +48,11 @@ export const registerPasswordState = atom({
   default: "",
 });
 
+export const confirmationPasswordState = atom({
+  key: "confirmation-password",
+  default: "",
+});
+
 export const loginEmailState = atom({
   key: "login-email",
   default: " ",
