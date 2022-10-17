@@ -23,7 +23,7 @@ const Login = ({ register, logout, login, passwordError }) => {
   const { currentUser } = useContext(AuthContext);
   return (
     <div className="row login-page">
-      <div className="login col-5 col-sm-8 col-md-6 col-lg-4 mt-5 mx-auto border">
+      <div className="login col-10 col-sm-8 col-md-6 col-lg-4 mt-5 mx-auto border">
         <h3 className="mt-3">Register User</h3>
         {passwordError && (
           <div className="alert alert-danger" role="alert">
@@ -51,7 +51,7 @@ const Login = ({ register, logout, login, passwordError }) => {
           Create User
         </button>
       </div>
-      <div className="login col-5  col-sm-8 col-md-6 col-lg-4 mx-auto mt-5 border ">
+      <div className="login col-10  col-sm-8 col-md-6 col-lg-4 mx-auto mt-5 border ">
         <h3 className="mt-3">Login</h3>
         <input
           placeholder="Email..."

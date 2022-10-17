@@ -46,7 +46,6 @@ function App() {
   const bookletsCollectionRef = collection(db, "Booklet");
   const [allPdfFiles, setAllPdfFiles] = useRecoilState(allPdfFilesAtom);
   const [currentPdfFiles, setCurrentPdfFiles] = useRecoilState(pdfFilesAtom);
-  const [pdfError, setPdfError] = useState("");
   const [booklets, setBooklets] = useRecoilState(bookletsAtom);
   const [title, setTitle] = useRecoilState(titleAtom);
   const [teacher, setTeacher] = useRecoilState(teacherAtom);
@@ -112,24 +111,26 @@ function App() {
         where("user", "==", userEmail)
       );
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        const bookletsArr = [];
-        querySnapshot.forEach((doc) => {
-          bookletsArr.push(doc.data());
-        });
-        console.log(bookletsArr);
-        setBooklets(bookletsArr);
+        setBooklets(
+          querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        );
+        console.log(booklets);
       });
       return unsubscribe;
     }
   }, [userEmail]);
 
   const createBookletDb = async () => {
-    await addDoc(bookletsCollectionRef, {
-      title: title,
-      teacher: teacher,
-      files: currentPdfFiles,
-      user: userEmail,
-    });
+    try {
+      await addDoc(bookletsCollectionRef, {
+        title: title,
+        teacher: teacher,
+        files: currentPdfFiles,
+        user: userEmail,
+      });
+    } catch (error) {
+      console.log(error);
+    }
     //set autoher_uid to the same as user uid;
   };
 
@@ -141,6 +142,7 @@ function App() {
   };
 
   const deleteBooklet = async (id) => {
+    console.log("delete");
     const bookletDoc = doc(db, "Booklet", id);
     await deleteDoc(bookletDoc);
   };
@@ -152,18 +154,17 @@ function App() {
         let reader = new FileReader();
         reader.readAsDataURL(selectedFile);
         reader.onloadend = (e) => {
-          setPdfError("");
-          //Set ALL pdf files
-          const newAllPdfFiles = [...allPdfFiles];
-          newAllPdfFiles.push(e.target.result);
-          setAllPdfFiles(newAllPdfFiles);
+          // //Set ALL pdf files
+          // const newAllPdfFiles = [...allPdfFiles];
+          // newAllPdfFiles.push(e.target.result);
+          // setAllPdfFiles(newAllPdfFiles);
           //Set pdf Files for single booklet
           const newPdfFiles = [...currentPdfFiles];
           newPdfFiles.push(e.target.result);
           setCurrentPdfFiles(newPdfFiles);
         };
       } else {
-        setPdfError("Not a valid pdf");
+        //setPdfError("Not a valid pdf");
       }
     } else {
       console.log("please select file");
@@ -210,7 +211,6 @@ function App() {
               element={
                 <Form
                   handleFile={handleFile}
-                  pdfError={pdfError}
                   createBookletDb={createBookletDb}
                 />
               }
