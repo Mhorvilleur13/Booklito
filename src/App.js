@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useRecoilState, atom, useRecoilValue } from "recoil";
 import {
   allPdfFilesState as allPdfFilesAtom,
@@ -12,7 +12,7 @@ import {
   registerPasswordState as registerPasswordAtom,
   loginEmailState as loginEmailAtom,
   loginPasswordState as loginPasswordAtom,
-  userState as userAtom,
+  userEmailState as userEmailAtom,
 } from "./atom";
 // Import the styles
 import "@react-pdf-viewer/core/lib/styles/index.css";
@@ -38,6 +38,8 @@ import {
 } from "firebase/auth";
 import { AuthProvider } from "./Auth";
 import PrivateRoute from "./PrivateRoute";
+import { AuthContext } from "./Auth";
+import { where, query } from "firebase/firestore";
 
 function App() {
   const bookletsCollectionRef = collection(db, "Booklet");
@@ -53,15 +55,8 @@ function App() {
   const [loginEmail, setLoginEmail] = useRecoilState(loginEmailAtom);
   const [loginPassword, setLoginPassword] = useRecoilState(loginPasswordAtom);
   const allowedFiles = ["application/pdf"];
-  const [user, setUser] = useState({});
   const [isAuth, setIsAuth] = useState(true);
-
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, (currentUser) => {
-  //     setUser(currentUser);
-  //     console.log(user.email);
-  //   });
-  // }, []);
+  const [userEmail, setUserEmail] = useRecoilState(userEmailAtom);
 
   const register = async () => {
     try {
@@ -70,7 +65,6 @@ function App() {
         registerEmail,
         registerPassword
       );
-      console.log(user);
     } catch (error) {
       console.log(error.message);
     }
@@ -83,29 +77,51 @@ function App() {
         loginEmail,
         loginPassword
       );
-      console.log(user);
     } catch (error) {
       console.log(error.message);
     }
   };
 
   const logout = async () => {
+    console.log("log out");
     await signOut(auth);
   };
 
+  // useEffect(() => {
+  //   const unsub = onSnapshot(bookletsCollectionRef, (snapshot) => {
+  //     setBooklets(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  //   });
+  //   return unsub;
+  //   //return filtered snapshot like with california example.
+  //   //pass query to onSnapShot
+  // }, []);
+
   useEffect(() => {
-    const unsub = onSnapshot(bookletsCollectionRef, (snapshot) => {
-      setBooklets(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    });
-    return unsub;
-  }, []);
+    if (userEmail) {
+      const q = query(
+        collection(db, "Booklet"),
+        where("user", "==", userEmail)
+      );
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const bookletsArr = [];
+        querySnapshot.forEach((doc) => {
+          bookletsArr.push(doc.data());
+        });
+        console.log(bookletsArr);
+        setBooklets(bookletsArr);
+      });
+      return unsubscribe;
+    }
+  }, [userEmail]);
 
   const createBookletDb = async () => {
     await addDoc(bookletsCollectionRef, {
       title: title,
       teacher: teacher,
       files: currentPdfFiles,
+      user: userEmail,
     });
+    //set autoher_uid to the same as user uid;
   };
 
   const editBooklet = async (id, newTitle, newTeacher) => {
@@ -193,35 +209,22 @@ function App() {
             <Route
               exact
               path="/booklets"
-              isAuth={isAuth}
-              user={user}
-              component={<PrivateRoute />}
-            >
-              <Route
-                exact
-                path="/booklets"
-                element={
-                  <PrivateRoute isAuth={isAuth}>
-                    <Booklet
-                      allPdfFiles={allPdfFiles}
-                      booklets={booklets}
-                      currentPdfFiles={currentPdfFiles}
-                      editBooklet={editBooklet}
-                      deleteBooklet={editBooklet}
-                    />
-                  </PrivateRoute>
-                }
-              />
-            </Route>
+              element={
+                <PrivateRoute isAuth={isAuth}>
+                  <Booklet
+                    allPdfFiles={allPdfFiles}
+                    booklets={booklets}
+                    currentPdfFiles={currentPdfFiles}
+                    editBooklet={editBooklet}
+                    deleteBooklet={deleteBooklet}
+                  />
+                </PrivateRoute>
+              }
+            />
             <Route
               path="/"
               element={
-                <Login
-                  register={register}
-                  user={user}
-                  logout={logout}
-                  login={login}
-                />
+                <Login register={register} logout={logout} login={login} />
               }
             />
           </Routes>

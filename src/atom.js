@@ -58,7 +58,7 @@ export const loginPasswordState = atom({
   default: " ",
 });
 
-export const userState = atom({
-  key: "user-state",
-  default: {},
+export const userEmailState = atom({
+  key: "user-email",
+  default: "",
 });

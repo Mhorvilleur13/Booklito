@@ -11,7 +11,7 @@ import {
 import { auth } from "../../firebase-config";
 import { AuthContext } from "../../Auth";
 
-const Login = ({ register, logout, user, login }) => {
+const Login = ({ register, logout, login }) => {
   const [registerEmail, setRegisterEmail] = useRecoilState(registerEmailAtom);
   const [registerPassword, setRegisterPassword] =
     useRecoilState(registerPasswordAtom);
