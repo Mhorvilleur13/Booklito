@@ -34,13 +34,14 @@ const Form = ({ handleFile, createBookletDb }) => {
     createBookletDb();
 
     setCurrentPdfFiles([]);
+    console.log("form submitted");
     e.target.reset();
   };
 
   return (
     <div className="row">
       <div className="col-6 text-center mx-auto mt-5 border">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="form-group">
           <label className="mt-3">
             <h5>Upload PDF</h5>
           </label>
