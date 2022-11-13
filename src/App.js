@@ -55,7 +55,7 @@ function App() {
   const [loginEmail, setLoginEmail] = useRecoilState(loginEmailAtom);
   const [loginPassword, setLoginPassword] = useRecoilState(loginPasswordAtom);
   const allowedFiles = ["application/pdf"];
-  const [isAuth, setIsAuth] = useState(true);
+  const [isAuth, setIsAuth] = useState(false);
   const [userEmail, setUserEmail] = useRecoilState(userEmailAtom);
   const [confirmPassword, setConfirmPassword] = useRecoilState(
     confirmationPasswordAtom
@@ -76,6 +76,7 @@ function App() {
     } catch (error) {
       console.log(error.message);
     }
+    setIsAuth(true);
   };
 
   const login = async () => {
@@ -88,11 +89,13 @@ function App() {
     } catch (error) {
       console.log(error.message);
     }
+    setIsAuth(true);
   };
 
   const logout = async () => {
     console.log("log out");
     await signOut(auth);
+    setIsAuth(false);
   };
 
   // useEffect(() => {
@@ -199,7 +202,7 @@ function App() {
         </div>
         <div className="col text-center">
           <Link to="/" className="btn btn-primary">
-            Login
+            {isAuth ? "Logout" : "Login"}
           </Link>
         </div>
       </div>
@@ -209,17 +212,19 @@ function App() {
             <Route
               path="/form"
               element={
-                <Form
-                  handleFile={handleFile}
-                  createBookletDb={createBookletDb}
-                />
+                <PrivateRoute>
+                  <Form
+                    handleFile={handleFile}
+                    createBookletDb={createBookletDb}
+                  />
+                </PrivateRoute>
               }
             />
             <Route
               exact
               path="/booklets"
               element={
-                <PrivateRoute isAuth={isAuth}>
+                <PrivateRoute>
                   <Booklet
                     allPdfFiles={allPdfFiles}
                     booklets={booklets}
