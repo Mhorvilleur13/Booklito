@@ -20,6 +20,7 @@ import "@react-pdf-viewer/core/lib/styles/index.css";
 import Booklet from "./Components/Booklet/Booklet.js";
 import Form from "./Components/Form/Form";
 import Login from "./Components/login/login";
+import Home from "./Components/Home/Home";
 import { Routes, Route, Link } from "react-router-dom";
 import { db, auth } from "./firebase-config";
 import {
@@ -184,20 +185,10 @@ function App() {
   // }, []);
   return (
     <div className="mt-4 container page-container">
-      <div className="row">
+      <div className="row w-50 mx-auto text-center">
         <div className="col text-center">
-          <Link to="/form" className="btn btn-primary">
-            Form
-          </Link>
-        </div>
-        <div className="col text-center">
-          <Link to="/booklets" className="btn btn-primary">
-            Booklets
-          </Link>
-        </div>
-        <div className="col text-center">
-          <Link to="/about" className="btn btn-primary">
-            About
+          <Link to="/Home" className="btn btn-primary">
+            Home
           </Link>
         </div>
         <div className="col text-center">
@@ -210,21 +201,26 @@ function App() {
         <AuthProvider>
           <Routes>
             <Route
-              path="/form"
+              path="/Home"
               element={
                 <PrivateRoute>
+                  <Home />
+                </PrivateRoute>
+              }
+            >
+              <Route
+                path="form"
+                element={
                   <Form
                     handleFile={handleFile}
                     createBookletDb={createBookletDb}
                   />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              exact
-              path="/booklets"
-              element={
-                <PrivateRoute>
+                }
+              />
+              <Route
+                exact
+                path="booklets"
+                element={
                   <Booklet
                     allPdfFiles={allPdfFiles}
                     booklets={booklets}
@@ -232,9 +228,9 @@ function App() {
                     editBooklet={editBooklet}
                     deleteBooklet={deleteBooklet}
                   />
-                </PrivateRoute>
-              }
-            />
+                }
+              />
+            </Route>
             <Route
               path="/"
               element={
