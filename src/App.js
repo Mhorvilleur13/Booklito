@@ -22,6 +22,7 @@ import "@react-pdf-viewer/core/lib/styles/index.css";
 import Booklet from "./Components/Booklet/Booklet.js";
 import Form from "./Components/Form/Form";
 import Login from "./Components/login/login";
+import Register from "./Components/Register/Register";
 import Home from "./Components/Home/Home";
 import { Routes, Route, Link } from "react-router-dom";
 import { db, auth } from "./firebase-config";
@@ -201,6 +202,12 @@ function App() {
                 {isAuth ? "Logout" : "Login"}
               </Link>
             </Nav.Link>
+            <Nav.Link>
+              {" "}
+              <Link to="/register" className="nav-link">
+                Register
+              </Link>
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -250,6 +257,12 @@ function App() {
                 />
               }
             />
+            <Route
+              path="/register"
+              element={
+                <Register passwordError={passwordError} register={register} />
+              }
+            ></Route>
           </Routes>
         </AuthProvider>
       </div>
