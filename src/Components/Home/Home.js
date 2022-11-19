@@ -17,7 +17,7 @@ const Home = () => {
           </Link>
         </div>
         <div className="col mx-auto">
-          <Link to="/Home/about" className="btn btn-primary">
+          <Link to="/Home/about" className="btn  btn-primary">
             About
           </Link>
         </div>

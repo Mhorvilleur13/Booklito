@@ -15,14 +15,21 @@ import {
   newTeacherState as newTeacherAtom,
   newTitleState as newTitleAtom,
 } from "../../atom";
+import { Page, Document } from "react-pdf/dist/esm/entry.webpack";
 
 const Booklet = ({ booklets, editBooklet, deleteBooklet }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const { handleSubmit } = useForm();
   const [newTitle, setNewTitle] = useRecoilState(newTitleAtom);
   const [newTeacher, setNewTeacher] = useRecoilState(newTeacherAtom);
+  const [numPage, setNumPages] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
   const onSubmit = (e) => {
     e.target.reset();
+  };
+  const onDocumentLoadSuccess = ({ numPages }) => {
+    setNumPages(numPage);
+    setPageNumber(1);
   };
   return (
     <div className="booklet-section row">

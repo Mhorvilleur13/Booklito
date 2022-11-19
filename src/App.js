@@ -158,14 +158,10 @@ function App() {
         let reader = new FileReader();
         reader.readAsDataURL(selectedFile);
         reader.onloadend = (e) => {
-          // //Set ALL pdf files
-          // const newAllPdfFiles = [...allPdfFiles];
-          // newAllPdfFiles.push(e.target.result);
-          // setAllPdfFiles(newAllPdfFiles);
-          //Set pdf Files for single booklet
           const newPdfFiles = [...currentPdfFiles];
           newPdfFiles.push(e.target.result);
           setCurrentPdfFiles(newPdfFiles);
+          console.log(currentPdfFiles);
         };
       } else {
         //setPdfError("Not a valid pdf");
