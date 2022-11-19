@@ -1,5 +1,7 @@
 import { useState, useEffect, useContext } from "react";
+import { Navigate } from "react-router-dom";
 import { useRecoilState, atom, useRecoilValue } from "recoil";
+import { Nav, Navbar, NavbarBrand } from "react-bootstrap";
 import {
   allPdfFilesState as allPdfFilesAtom,
   bookletsState as bookletsAtom,
@@ -181,18 +183,27 @@ function App() {
   // }, []);
   return (
     <div className="mt-4 container page-container">
-      <div className="row w-50 mx-auto text-center">
-        <div className="col text-center">
-          <Link to="/Home" className="btn btn-primary">
-            Home
-          </Link>
-        </div>
-        <div className="col text-center">
-          <Link to="/" className="btn btn-primary">
-            {isAuth ? "Logout" : "Login"}
-          </Link>
-        </div>
-      </div>
+      <Navbar bg="light" sticky="top" expand="lg">
+        {" "}
+        <Navbar.Brand>Logo</Navbar.Brand>
+        <Navbar.Toggle />
+        <Navbar.Collapse>
+          <Nav>
+            <Nav.Link>
+              {" "}
+              <Link to="/Home" className="nav-link">
+                Home
+              </Link>
+            </Nav.Link>
+            <Nav.Link>
+              {" "}
+              <Link to="/" className="nav-link">
+                {isAuth ? "Logout" : "Login"}
+              </Link>
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
       <div className="row">
         <AuthProvider>
           <Routes>
@@ -213,6 +224,7 @@ function App() {
                   />
                 }
               />
+              <Route index element={<Navigate to="booklets" replace />} />
               <Route
                 exact
                 path="booklets"

@@ -33,7 +33,7 @@ const Booklet = ({ booklets, editBooklet, deleteBooklet }) => {
   };
   return (
     <div className="booklet-section row">
-      <div className="col-md-8 col-sm-10 col-lg-7 col-xl-5 mx-auto">
+      <div className="col-md-8 col-sm-10 col-lg-7 col-xl-5 mx-auto ">
         {booklets.length >= 1
           ? booklets.map((booklet) => {
               return (

@@ -6,17 +6,17 @@ const Home = () => {
   return (
     <div className="components container">
       <div className="row w-50  mx-auto text-center mt-4 componentsNav">
-        <div className="col mx-auto">
+        <div className="col mx-auto componentLink">
           <Link to="/Home/form" className="btn btn-primary">
             Form
           </Link>
         </div>
-        <div className="col">
+        <div className="col componentLink">
           <Link to="/Home/booklets" className="btn btn-primary">
             Booklets
           </Link>
         </div>
-        <div className="col mx-auto">
+        <div className="col mx-auto componentLink">
           <Link to="/Home/about" className="btn  btn-primary">
             About
           </Link>
