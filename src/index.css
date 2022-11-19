@@ -24,7 +24,7 @@ code {
   justify-content: center;
   align-items: center; 
   flex-direction: column;
-  height: 600px;
+  height: 500px;
   border: 1px solid black;
   border-radius: 20px;
 }
@@ -36,7 +36,7 @@ code {
   padding-bottom: 20px;
 }
 .page {
-  height: 600px;
+  height: 500px;
   border: 1px solid black;
   border-radius: 20px;
 }
@@ -69,4 +69,13 @@ code {
   flex-direction: column;
 }
 
+@media only screen and (max-width: 800px){
+ .componentsNav {
+   display: flex;
+   flex-direction: column;
+ }
+ .componentLink {
+   padding: 10px 10px;
+ }
+}
 
