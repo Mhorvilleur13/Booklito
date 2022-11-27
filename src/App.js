@@ -24,7 +24,7 @@ import Form from "./Components/Form/Form";
 import Login from "./Components/login/login";
 import Register from "./Components/Register/Register";
 import Home from "./Components/Home/Home";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { db, auth } from "./firebase-config";
 import {
   collection,
@@ -65,6 +65,7 @@ function App() {
     confirmationPasswordAtom
   );
   const [passwordError, setPasswordError] = useState("");
+  const navigate = useNavigate();
 
   const register = async () => {
     if (confirmPassword !== registerPassword) {
@@ -80,6 +81,7 @@ function App() {
     } catch (error) {
       console.log(error.message);
     }
+    navigate("/Home");
     setIsAuth(true);
   };
 
@@ -93,6 +95,7 @@ function App() {
     } catch (error) {
       console.log(error.message);
     }
+    navigate("/Home");
     setIsAuth(true);
   };
 
