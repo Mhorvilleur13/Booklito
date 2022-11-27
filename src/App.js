@@ -24,6 +24,7 @@ import Form from "./Components/Form/Form";
 import Login from "./Components/login/login";
 import Register from "./Components/Register/Register";
 import Home from "./Components/Home/Home";
+import About from "./Components/About/About";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { db, auth } from "./firebase-config";
 import {
@@ -58,7 +59,6 @@ function App() {
   const [loginEmail, setLoginEmail] = useRecoilState(loginEmailAtom);
   const [loginPassword, setLoginPassword] = useRecoilState(loginPasswordAtom);
   const allowedFiles = ["application/pdf"];
-  const [isAuth, setIsAuth] = useState(false);
   const [userEmail, setUserEmail] = useRecoilState(userEmailAtom);
   const [confirmPassword, setConfirmPassword] = useRecoilState(
     confirmationPasswordAtom
@@ -83,7 +83,6 @@ function App() {
       console.log(error.message);
     }
     navigate("/Home");
-    setIsAuth(true);
   };
 
   const login = async () => {
@@ -97,13 +96,11 @@ function App() {
       console.log(error.message);
     }
     navigate("/Home");
-    setIsAuth(true);
   };
 
   const logout = async () => {
     console.log("log out");
     await signOut(auth);
-    setIsAuth(false);
   };
 
   // useEffect(() => {
@@ -211,9 +208,22 @@ function App() {
               <Link
                 to="/"
                 className="nav-link"
-                onClick={() => setExpanded(false)}
+                onClick={() => {
+                  setExpanded(false);
+                  currentUser && logout();
+                }}
               >
                 {currentUser ? "Logout" : "Login"}
+              </Link>
+            </Nav.Link>
+            <Nav.Link>
+              {" "}
+              <Link
+                to="/about"
+                className="nav-link"
+                onClick={() => setExpanded(false)}
+              >
+                About
               </Link>
             </Nav.Link>
             <Nav.Link>
@@ -280,6 +290,7 @@ function App() {
               <Register passwordError={passwordError} register={register} />
             }
           ></Route>
+          <Route path="/about" element={<About />}></Route>
         </Routes>
       </div>
     </div>
