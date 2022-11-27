@@ -7,13 +7,16 @@ import "bootstrap/dist/css/bootstrap.css";
 import { RecoilRoot } from "recoil";
 import { BrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { AuthProvider } from "./Auth";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <RecoilRoot>
       <BrowserRouter>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </BrowserRouter>
     </RecoilRoot>
   </React.StrictMode>
