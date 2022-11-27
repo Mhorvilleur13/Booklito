@@ -41,7 +41,6 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { AuthProvider } from "./Auth";
 import PrivateRoute from "./PrivateRoute";
 import { AuthContext } from "./Auth";
 import { where, query } from "firebase/firestore";
@@ -67,6 +66,7 @@ function App() {
   const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
+  const { currentUser } = useContext(AuthContext);
 
   const register = async () => {
     if (confirmPassword !== registerPassword) {
@@ -213,7 +213,7 @@ function App() {
                 className="nav-link"
                 onClick={() => setExpanded(false)}
               >
-                {isAuth ? "Logout" : "Login"}
+                {currentUser ? "Logout" : "Login"}
               </Link>
             </Nav.Link>
             <Nav.Link>
@@ -223,66 +223,64 @@ function App() {
                 className="nav-link"
                 onClick={() => setExpanded(false)}
               >
-                Register
+                {!currentUser ? "Register" : ""}
               </Link>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
       <div className="row">
-        <AuthProvider>
-          <Routes>
+        <Routes>
+          <Route
+            path="/Home"
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+          >
             <Route
-              path="/Home"
+              path="form"
               element={
-                <PrivateRoute>
-                  <Home />
-                </PrivateRoute>
-              }
-            >
-              <Route
-                path="form"
-                element={
-                  <Form
-                    handleFile={handleFile}
-                    createBookletDb={createBookletDb}
-                  />
-                }
-              />
-              <Route index element={<Navigate to="booklets" replace />} />
-              <Route
-                exact
-                path="booklets"
-                element={
-                  <Booklet
-                    allPdfFiles={allPdfFiles}
-                    booklets={booklets}
-                    currentPdfFiles={currentPdfFiles}
-                    editBooklet={editBooklet}
-                    deleteBooklet={deleteBooklet}
-                  />
-                }
-              />
-            </Route>
-            <Route
-              path="/"
-              element={
-                <Login
-                  passwordError={passwordError}
-                  register={register}
-                  logout={logout}
-                  login={login}
+                <Form
+                  handleFile={handleFile}
+                  createBookletDb={createBookletDb}
                 />
               }
             />
+            <Route index element={<Navigate to="booklets" replace />} />
             <Route
-              path="/register"
+              exact
+              path="booklets"
               element={
-                <Register passwordError={passwordError} register={register} />
+                <Booklet
+                  allPdfFiles={allPdfFiles}
+                  booklets={booklets}
+                  currentPdfFiles={currentPdfFiles}
+                  editBooklet={editBooklet}
+                  deleteBooklet={deleteBooklet}
+                />
               }
-            ></Route>
-          </Routes>
-        </AuthProvider>
+            />
+          </Route>
+          <Route
+            path="/"
+            element={
+              <Login
+                passwordError={passwordError}
+                register={register}
+                logout={logout}
+                login={login}
+              />
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <Register passwordError={passwordError} register={register} />
+            }
+          ></Route>
+        </Routes>
       </div>
     </div>
   );
