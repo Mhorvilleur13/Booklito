@@ -66,6 +66,7 @@ function App() {
   );
   const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
+  const [expanded, setExpanded] = useState(false);
 
   const register = async () => {
     if (confirmPassword !== registerPassword) {
@@ -187,27 +188,41 @@ function App() {
   // }, []);
   return (
     <div className="mt-4 container page-container">
-      <Navbar bg="light" sticky="top" expand="lg">
+      <Navbar bg="light" expanded={expanded} sticky="top" expand="lg">
         {" "}
         <Navbar.Brand>Logo</Navbar.Brand>
-        <Navbar.Toggle />
+        <Navbar.Toggle
+          onClick={() => setExpanded(expanded ? false : "expanded")}
+        />
         <Navbar.Collapse>
           <Nav>
             <Nav.Link>
               {" "}
-              <Link to="/Home" className="nav-link">
+              <Link
+                to="/Home"
+                className="nav-link"
+                onClick={() => setExpanded(false)}
+              >
                 Home
               </Link>
             </Nav.Link>
             <Nav.Link>
               {" "}
-              <Link to="/" className="nav-link">
+              <Link
+                to="/"
+                className="nav-link"
+                onClick={() => setExpanded(false)}
+              >
                 {isAuth ? "Logout" : "Login"}
               </Link>
             </Nav.Link>
             <Nav.Link>
               {" "}
-              <Link to="/register" className="nav-link">
+              <Link
+                to="/register"
+                className="nav-link"
+                onClick={() => setExpanded(false)}
+              >
                 Register
               </Link>
             </Nav.Link>
