@@ -16,11 +16,6 @@ const Home = () => {
             Booklets
           </Link>
         </div>
-        <div className="col mx-auto componentLink">
-          <Link to="/Home/about" className="btn  btn-primary">
-            About
-          </Link>
-        </div>
       </div>
       <Outlet />
     </div>
