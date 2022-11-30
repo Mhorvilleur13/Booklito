@@ -12,6 +12,19 @@ code {
     monospace;
 }
 
+.navbar {
+  background-color: #2f4990;
+}
+.nav-link {
+  color: white !important;
+}
+.navbar-brand {
+  margin-left: 20px;
+}
+.navbar-toggler {
+  margin-right: 20px;
+}
+
 .booklet-section {
   /* display: flex;
   justify-content: center;
