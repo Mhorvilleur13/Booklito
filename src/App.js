@@ -184,8 +184,8 @@ function App() {
   //   getBookletsDb();
   // }, []);
   return (
-    <div className="mt-4 container page-container">
-      <Navbar bg="light" expanded={expanded} sticky="top" expand="lg">
+    <div className="mt-4 container-fluid page-container">
+      <Navbar className="navbar" expanded={expanded} sticky="top" expand="lg">
         {" "}
         <Navbar.Brand>Logo</Navbar.Brand>
         <Navbar.Toggle
