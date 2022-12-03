@@ -21,10 +21,18 @@ code {
 .navbar-brand {
   margin-left: 20px;
 }
+ 
 .navbar-toggler {
   margin-right: 20px;
 }
 
+
+
+
+.home-btn {
+  background-color: #2f4990 !important;
+  color: white !important;
+}
 .booklet-section {
   /* display: flex;
   justify-content: center;
@@ -48,6 +56,10 @@ code {
   width: 300px;
   padding-bottom: 20px;
 }
+
+/* .react-pdf__Page__textContent  {
+display: none;
+} */
 .page {
   height: 500px;
   border: 1px solid black;
