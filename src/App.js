@@ -1,7 +1,8 @@
 import { useState, useEffect, useContext } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Routes, Route, Link, useNavigate } from "react-router-dom";
 import { useRecoilState, atom, useRecoilValue } from "recoil";
 import { Nav, Navbar, NavbarBrand } from "react-bootstrap";
+//Import Atoms
 import {
   allPdfFilesState as allPdfFilesAtom,
   bookletsState as bookletsAtom,
@@ -19,13 +20,15 @@ import {
 } from "./atom";
 // Import the styles
 import "@react-pdf-viewer/core/lib/styles/index.css";
+//import components
 import Booklet from "./Components/Booklet/Booklet.js";
 import Form from "./Components/Form/Form";
 import Login from "./Components/login/login";
 import Register from "./Components/Register/Register";
 import Home from "./Components/Home/Home";
 import About from "./Components/About/About";
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import PrivateRoute from "./PrivateRoute";
+//import Firebase
 import { db, auth } from "./firebase-config";
 import {
   collection,
@@ -42,7 +45,6 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import PrivateRoute from "./PrivateRoute";
 import { AuthContext } from "./Auth";
 import { where, query } from "firebase/firestore";
 

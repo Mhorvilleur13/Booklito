@@ -15,21 +15,25 @@ import {
   newTeacherState as newTeacherAtom,
   newTitleState as newTitleAtom,
 } from "../../atom";
-import { Page, Document } from "react-pdf/dist/esm/entry.webpack";
+//import { Page, Document } from "react-pdf/dist/esm/entry.webpack";
+//import { Document, Page } from "react-pdf";
+import { Document, Page } from "react-pdf/dist/esm/entry.webpack5";
+import MichaelPanel from "../../Assets/images/MichaelPanel.pdf";
 
 const Booklet = ({ booklets, editBooklet, deleteBooklet }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const { handleSubmit } = useForm();
   const [newTitle, setNewTitle] = useRecoilState(newTitleAtom);
   const [newTeacher, setNewTeacher] = useRecoilState(newTeacherAtom);
-  const [numPage, setNumPages] = useState(null);
+  const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
+
+  const onDocumentLoadSuccess = ({ numPages }) => {
+    console.log(`number pages: ${numPages}`);
+    setNumPages(numPages);
+  };
   const onSubmit = (e) => {
     e.target.reset();
-  };
-  const onDocumentLoadSuccess = ({ numPages }) => {
-    setNumPages(numPage);
-    setPageNumber(1);
   };
   return (
     <div className="booklet-section row">
@@ -52,9 +56,28 @@ const Booklet = ({ booklets, editBooklet, deleteBooklet }) => {
                     return (
                       <Carousel.Item>
                         <h4 className="text-center">
-                          Page {index + 1} / {booklet.files.length}
+                          Student {index + 1} / {booklet.files.length}
                         </h4>
-                        <embed src={pdfFile} className="w-100 page" />
+                        {/* <embed
+                          src={MichaelPanel + "#zoom=65"}
+                          className="w-100 page"
+                        /> */}
+                        <iframe
+                          src={pdfFile + "#zoom=65"}
+                          width="100%"
+                          height="500px"
+                          frameborder="0"
+                          scrolling="no"
+                          className="page"
+                        >
+                          <p>Your web browser doesn't support iframes.</p>
+                        </iframe>
+                        {/* <Document
+                          file={pdfFile}
+                          onLoadSuccess={onDocumentLoadSuccess}
+                        >
+                          <Page pageNumber={pageNumber} />
+                        </Document> */}
                         <div className="mr-2 text-center">
                           <button
                             className="btn btn-outline-primary btn-sm"

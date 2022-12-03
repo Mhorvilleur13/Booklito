@@ -7,12 +7,12 @@ const Home = () => {
     <div className="components container">
       <div className="row w-50  mx-auto text-center mt-4 componentsNav">
         <div className="col mx-auto componentLink">
-          <Link to="/Home/form" className="btn btn-primary">
+          <Link to="/Home/form" className="btn home-btn">
             Form
           </Link>
         </div>
         <div className="col componentLink">
-          <Link to="/Home/booklets" className="btn btn-primary">
+          <Link to="/Home/booklets" className="btn  home-btn">
             Booklets
           </Link>
         </div>
