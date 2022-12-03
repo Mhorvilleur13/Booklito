@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRecoilState } from "recoil";
 import {
   allPdfFilesState as allPdfFilesAtom,
+  pdfFileNamesState as pdfFileNamesAtom,
   bookletsState as bookletsAtom,
   pdfFilesState as pdfFilesAtom,
   titleState as titleAtom,
@@ -13,6 +14,7 @@ import { useForm } from "react-hook-form";
 const Form = ({ handleFile, createBookletDb }) => {
   const [allPdfFiles, setAllPdfFiles] = useRecoilState(allPdfFilesAtom);
   const [currentPdfFiles, setCurrentPdfFiles] = useRecoilState(pdfFilesAtom);
+  const [pdfFileNames, setPdfFileNames] = useRecoilState(pdfFileNamesAtom);
   const [booklets, setBooklets] = useRecoilState(bookletsAtom);
   const [title, setTitle] = useRecoilState(titleAtom);
   const [teacher, setTeacher] = useRecoilState(teacherAtom);
@@ -32,7 +34,8 @@ const Form = ({ handleFile, createBookletDb }) => {
     }
     setBooklets(newBooklets);
     createBookletDb();
-
+    console.log(currentPdfFiles);
+    setPdfFileNames([]);
     setCurrentPdfFiles([]);
     console.log("form submitted");
     e.target.reset();
@@ -40,7 +43,7 @@ const Form = ({ handleFile, createBookletDb }) => {
 
   return (
     <div className="row">
-      <div className="col-6 text-center mx-auto mt-5 border">
+      <div className="col-6 text-center mx-auto mt-5 mb-5 border">
         <form onSubmit={handleSubmit(onSubmit)} className="form-group">
           <label className="mt-3">
             <h5>Upload PDF</h5>
@@ -79,6 +82,14 @@ const Form = ({ handleFile, createBookletDb }) => {
           </div>
           {pdfError && <span className="text-danger">{pdfError}</span>}
         </form>
+        <div className="card mt-4">
+          <ul className="list-group list-group-flush">
+            {pdfFileNames.length >= 1 &&
+              pdfFileNames.map((pdfFile) => {
+                return <li className="list-group-item">{pdfFile}</li>;
+              })}
+          </ul>
+        </div>
       </div>
     </div>
   );
