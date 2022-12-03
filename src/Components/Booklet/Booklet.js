@@ -28,10 +28,6 @@ const Booklet = ({ booklets, editBooklet, deleteBooklet }) => {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
 
-  const onDocumentLoadSuccess = ({ numPages }) => {
-    console.log(`number pages: ${numPages}`);
-    setNumPages(numPages);
-  };
   const onSubmit = (e) => {
     e.target.reset();
   };
