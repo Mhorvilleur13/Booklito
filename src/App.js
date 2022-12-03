@@ -187,10 +187,17 @@ function App() {
   // }, []);
   return (
     <div className="mt-4 container-fluid page-container">
-      <Navbar className="navbar" expanded={expanded} sticky="top" expand="lg">
+      <Navbar
+        className="navbar"
+        expanded={expanded}
+        sticky="top"
+        expand="lg"
+        variant="dark"
+      >
         {" "}
         <Navbar.Brand>Logo</Navbar.Brand>
         <Navbar.Toggle
+          aria-controls="responsive-navbar-nav"
           onClick={() => setExpanded(expanded ? false : "expanded")}
         />
         <Navbar.Collapse>
