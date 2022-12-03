@@ -17,6 +17,7 @@ code {
 }
 .nav-link {
   color: white !important;
+  margin-left: 10px;
 }
 .navbar-brand {
   margin-left: 20px;
