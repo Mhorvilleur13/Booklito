@@ -3,18 +3,17 @@ import { useState } from "react";
 import { useRecoilState } from "recoil";
 import {
   allPdfFilesState as allPdfFilesAtom,
-  pdfFileNamesState as pdfFileNamesAtom,
   bookletsState as bookletsAtom,
   pdfFilesState as pdfFilesAtom,
   titleState as titleAtom,
   teacherState as teacherAtom,
 } from "../../atom";
 import { useForm } from "react-hook-form";
+import bincopy from "../../Assets/images/bincopy.png";
 
-const Form = ({ handleFile, createBookletDb }) => {
+const Form = ({ handleFile, createBookletDb, deletePdfFromPreview }) => {
   const [allPdfFiles, setAllPdfFiles] = useRecoilState(allPdfFilesAtom);
   const [currentPdfFiles, setCurrentPdfFiles] = useRecoilState(pdfFilesAtom);
-  const [pdfFileNames, setPdfFileNames] = useRecoilState(pdfFileNamesAtom);
   const [booklets, setBooklets] = useRecoilState(bookletsAtom);
   const [title, setTitle] = useRecoilState(titleAtom);
   const [teacher, setTeacher] = useRecoilState(teacherAtom);
@@ -34,10 +33,7 @@ const Form = ({ handleFile, createBookletDb }) => {
     }
     setBooklets(newBooklets);
     createBookletDb();
-    console.log(currentPdfFiles);
-    setPdfFileNames([]);
     setCurrentPdfFiles([]);
-    console.log("form submitted");
     e.target.reset();
   };
 
@@ -84,9 +80,21 @@ const Form = ({ handleFile, createBookletDb }) => {
         </form>
         <div className="card mt-4">
           <ul className="list-group list-group-flush">
-            {pdfFileNames.length >= 1 &&
-              pdfFileNames.map((pdfFile) => {
-                return <li className="list-group-item">{pdfFile}</li>;
+            {currentPdfFiles.length >= 1 &&
+              currentPdfFiles.map((pdfFile) => {
+                return (
+                  <li className="list-group-item">
+                    {pdfFile.fileName} <br />
+                    <button
+                      className="btn btn-block"
+                      onClick={() => {
+                        deletePdfFromPreview(pdfFile.fileName);
+                      }}
+                    >
+                      <img height="15px" width="15px" src={bincopy} />
+                    </button>
+                  </li>
+                );
               })}
           </ul>
         </div>

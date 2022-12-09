@@ -54,12 +54,8 @@ const Booklet = ({ booklets, editBooklet, deleteBooklet }) => {
                         <h4 className="text-center">
                           Student {index + 1} / {booklet.files.length}
                         </h4>
-                        {/* <embed
-                          src={MichaelPanel + "#zoom=65"}
-                          className="w-100 page"
-                        /> */}
                         <iframe
-                          src={pdfFile + "#zoom=65"}
+                          src={pdfFile.base64 + "#zoom=65"}
                           width="100%"
                           height="500px"
                           frameborder="0"

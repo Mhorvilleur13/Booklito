@@ -5,7 +5,6 @@ import { Nav, Navbar, NavbarBrand } from "react-bootstrap";
 //Import Atoms
 import {
   allPdfFilesState as allPdfFilesAtom,
-  pdfFileNamesState as pdfFileNamesAtom,
   bookletsState as bookletsAtom,
   pdfFilesState as pdfFilesAtom,
   titleState as titleAtom,
@@ -53,7 +52,6 @@ function App() {
   const bookletsCollectionRef = collection(db, "Booklet");
   const [allPdfFiles, setAllPdfFiles] = useRecoilState(allPdfFilesAtom);
   const [currentPdfFiles, setCurrentPdfFiles] = useRecoilState(pdfFilesAtom);
-  const [pdfFileNames, setPdfFileNames] = useRecoilState(pdfFileNamesAtom);
   const [booklets, setBooklets] = useRecoilState(bookletsAtom);
   const [title, setTitle] = useRecoilState(titleAtom);
   const [teacher, setTeacher] = useRecoilState(teacherAtom);
@@ -126,7 +124,6 @@ function App() {
         setBooklets(
           querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
         );
-        console.log(booklets);
       });
       return unsubscribe;
     }
@@ -154,27 +151,32 @@ function App() {
   };
 
   const deleteBooklet = async (id) => {
-    console.log("delete");
     const bookletDoc = doc(db, "Booklet", id);
     await deleteDoc(bookletDoc);
+  };
+
+  const deletePdfFromPreview = (fileName) => {
+    const pdf = currentPdfFiles.find((pdf) => pdf.fileName === fileName);
+    if (!pdf) {
+      return;
+    }
+    const newPdfs = currentPdfFiles.filter((pdf) => pdf.fileName !== fileName);
+    setCurrentPdfFiles(newPdfs);
   };
 
   const handleFile = (e) => {
     let selectedFile = e.target.files[0];
     if (selectedFile) {
       if (selectedFile && allowedFiles.includes(selectedFile.type)) {
-        const newPDFFileNames = [...pdfFileNames];
-        console.log(selectedFile.name);
-        newPDFFileNames.push(selectedFile.name);
-        setPdfFileNames(newPDFFileNames);
         let reader = new FileReader();
         reader.readAsDataURL(selectedFile);
         reader.onloadend = (e) => {
           const newPdfFiles = [...currentPdfFiles];
-          newPdfFiles.push(e.target.result);
-          console.log(`current pdfs: ${currentPdfFiles}`);
+          newPdfFiles.push({
+            fileName: selectedFile.name,
+            base64: e.target.result,
+          });
           setCurrentPdfFiles(newPdfFiles);
-          console.log(currentPdfFiles);
         };
       } else {
         //setPdfError("Not a valid pdf");
@@ -269,7 +271,7 @@ function App() {
               path="form"
               element={
                 <Form
-                  pdfFileNames={pdfFileNames}
+                  deletePdfFromPreview={deletePdfFromPreview}
                   handleFile={handleFile}
                   createBookletDb={createBookletDb}
                 />
