@@ -9,11 +9,6 @@ export const allPdfFilesState = atom({
   default: [],
 });
 
-export const pdfFileNamesState = atom({
-  key: "pdf-file-names",
-  default: [],
-});
-
 export const pdfFilesState = atom({
   key: "pdf-files",
   default: [],
