@@ -21,7 +21,8 @@ import {
 // Import the styles
 import "@react-pdf-viewer/core/lib/styles/index.css";
 //import components
-import Booklet from "./Components/Booklet/Booklet.js";
+import Booklets from "./Components/Booklets/Booklets.js";
+import Booklet from "./Components/Booklet/Booklet";
 import Form from "./Components/Form/Form";
 import Login from "./Components/login/login";
 import Register from "./Components/Register/Register";
@@ -47,6 +48,7 @@ import {
 } from "firebase/auth";
 import { AuthContext } from "./Auth";
 import { where, query } from "firebase/firestore";
+import { getDatabase, ref, set, onValue, child, get } from "firebase/database";
 
 function App() {
   const bookletsCollectionRef = collection(db, "Booklet");
@@ -69,6 +71,7 @@ function App() {
   const navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
   const { currentUser } = useContext(AuthContext);
+  const [bookletsWithout, setBookletsWithout] = useState([]);
 
   const register = async () => {
     if (confirmPassword !== registerPassword) {
@@ -125,9 +128,23 @@ function App() {
           querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
         );
       });
+      console.log(booklets);
       return unsubscribe;
     }
   }, [userEmail]);
+
+  function createUUID() {
+    let dt = new Date().getTime();
+    const uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+      /[xy]/g,
+      function (c) {
+        const r = (dt + Math.random() * 16) % 16 | 0;
+        dt = Math.floor(dt / 16);
+        return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
+      }
+    );
+    return uuid;
+  }
 
   const createBookletDb = async () => {
     try {
@@ -136,6 +153,7 @@ function App() {
         teacher: teacher,
         files: currentPdfFiles,
         user: userEmail,
+        bookletId: createUUID(),
       });
     } catch (error) {
       console.log(error);
@@ -282,7 +300,7 @@ function App() {
               exact
               path="booklets"
               element={
-                <Booklet
+                <Booklets
                   allPdfFiles={allPdfFiles}
                   booklets={booklets}
                   currentPdfFiles={currentPdfFiles}
@@ -310,6 +328,7 @@ function App() {
             }
           ></Route>
           <Route path="/about" element={<About />}></Route>
+          <Route path="/booklet/:id" element={<Booklet />}></Route>
         </Routes>
       </div>
     </div>
