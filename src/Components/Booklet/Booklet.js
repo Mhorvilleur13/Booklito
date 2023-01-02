@@ -58,20 +58,6 @@ const Booklet = () => {
                   >
                     <p>Your web browser doesn't support iframes.</p>
                   </iframe>
-                  <div className="mr-2 text-center">
-                    <button className="btn btn-outline-primary btn-sm">
-                      Edit Booklet
-                    </button>
-                    <button className="btn btn-outline-danger btn-sm">
-                      Delete Booklet
-                    </button>
-                    <button
-                      className="btn btn-outline-success btn-sm"
-                      onClick={() => {}}
-                    >
-                      Share Booklet
-                    </button>
-                  </div>
                 </Carousel.Item>
               );
             })}
