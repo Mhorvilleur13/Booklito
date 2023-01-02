@@ -26,7 +26,6 @@ import Booklet from "./Components/Booklet/Booklet";
 import Form from "./Components/Form/Form";
 import Login from "./Components/login/login";
 import Register from "./Components/Register/Register";
-import Home from "./Components/Home/Home";
 import About from "./Components/About/About";
 import PrivateRoute from "./PrivateRoute";
 //import Firebase

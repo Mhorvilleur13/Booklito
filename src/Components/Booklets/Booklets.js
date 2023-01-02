@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import Carousel from "react-bootstrap/Carousel";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 // Import the styles
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import ELFlogo from "../../Assets/images/ELP_Logo_TaglineStacked_Blue.png";
@@ -24,13 +25,14 @@ const Booklets = ({ booklets, editBooklet, deleteBooklet }) => {
   const [newTitle, setNewTitle] = useRecoilState(newTitleAtom);
   const [newTeacher, setNewTeacher] = useRecoilState(newTeacherAtom);
   const [bookletUrl, setBookletUrl] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const onSubmit = (e) => {
     e.target.reset();
   };
   const shareBookletUrl = (id) => {
+    setCopied(false);
     const url = "http://localhost:3000/booklet/" + id;
-    console.log(url);
     setBookletUrl(url);
   };
   return (
@@ -181,6 +183,17 @@ const Booklets = ({ booklets, editBooklet, deleteBooklet }) => {
                                           {bookletUrl}
                                         </Link>
                                       </p>
+                                      <CopyToClipboard
+                                        text={bookletUrl}
+                                        onCopy={() => setCopied(true)}
+                                      >
+                                        <button className="btn mb-2 pr-2 btn-sm btn-primary">
+                                          Copy URL to clipboard
+                                        </button>
+                                      </CopyToClipboard>
+                                      {copied ? (
+                                        <p style={{ color: "red" }}>Copied!</p>
+                                      ) : null}
                                     </div>
                                   </div>
                                   <div className="col text-center">
