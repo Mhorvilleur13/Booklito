@@ -8,7 +8,7 @@ const Home = () => {
       <div className="row w-50  mx-auto text-center mt-4 componentsNav">
         <div className="col mx-auto componentLink">
           <Link to="/Home/form" className="btn home-btn">
-            Form
+            Upload New Booklet
           </Link>
         </div>
         <div className="col componentLink">

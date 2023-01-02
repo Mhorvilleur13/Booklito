@@ -100,7 +100,7 @@ function App() {
     } catch (error) {
       console.log(error.message);
     }
-    navigate("/Home");
+    navigate("/booklets");
   };
 
   const logout = async () => {
@@ -232,17 +232,27 @@ function App() {
             <Nav.Link>
               {" "}
               <Link
-                to="/Home"
+                to="/booklets"
                 className="nav-link"
                 onClick={() => setExpanded(false)}
               >
-                Home
+                Booklets
               </Link>
             </Nav.Link>
             <Nav.Link>
               {" "}
               <Link
-                to="/"
+                to="/form"
+                className="nav-link"
+                onClick={() => setExpanded(false)}
+              >
+                Upload New Booklet
+              </Link>
+            </Nav.Link>
+            <Nav.Link>
+              {" "}
+              <Link
+                to="/login"
                 className="nav-link"
                 onClick={() => {
                   setExpanded(false);
@@ -278,28 +288,9 @@ function App() {
       <div className="row">
         <Routes>
           <Route
-            path="/Home"
+            path="booklets"
             element={
               <PrivateRoute>
-                <Home />
-              </PrivateRoute>
-            }
-          >
-            <Route
-              path="form"
-              element={
-                <Form
-                  deletePdfFromPreview={deletePdfFromPreview}
-                  handleFile={handleFile}
-                  createBookletDb={createBookletDb}
-                />
-              }
-            />
-            <Route index element={<Navigate to="booklets" replace />} />
-            <Route
-              exact
-              path="booklets"
-              element={
                 <Booklets
                   allPdfFiles={allPdfFiles}
                   booklets={booklets}
@@ -307,11 +298,23 @@ function App() {
                   editBooklet={editBooklet}
                   deleteBooklet={deleteBooklet}
                 />
-              }
-            />
-          </Route>
+              </PrivateRoute>
+            }
+          />
           <Route
-            path="/"
+            path="/form"
+            element={
+              <PrivateRoute>
+                <Form
+                  deletePdfFromPreview={deletePdfFromPreview}
+                  handleFile={handleFile}
+                  createBookletDb={createBookletDb}
+                />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/login"
             element={
               <Login
                 passwordError={passwordError}
