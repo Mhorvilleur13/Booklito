@@ -4,12 +4,12 @@ import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: `${process.env.REACT_APP_API_KEY}`,
-  authDomain: "essay-booklet.firebaseapp.com",
-  projectId: "essay-booklet",
-  storageBucket: "essay-booklet.appspot.com",
-  messagingSenderId: "533762304223",
-  appId: "1:533762304223:web:a0b3862fd0c999f9ede16a",
-  measurementId: "G-HQKYLL1QCX",
+  authDomain: `${process.env.REACT_APP_AUTH_DOMAIN}`,
+  projectId: `${process.env.REACT_APP_PROJECT_ID}`,
+  storageBucket: `${process.env.REACT_APP_STORAGE_BUCKET}`,
+  messagingSenderId: `${process.env.REACT_APP_MESSAGING_SENDER_ID}`,
+  appId: `${process.env.REACT_APP_ID}`,
+  measurementId: `${process.env.REACT_APP_MEASUREMENT_ID}`,
 };
 
 export const app = initializeApp(firebaseConfig);
