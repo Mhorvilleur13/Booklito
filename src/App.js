@@ -251,6 +251,18 @@ function App() {
             <Nav.Link>
               {" "}
               <Link
+                to="/about"
+                className="nav-link"
+                onClick={() => setExpanded(false)}
+              >
+                About
+              </Link>
+            </Nav.Link>
+          </Nav>
+          <Nav className={!expanded ? "expanded" : ""}>
+            <Nav.Link>
+              {" "}
+              <Link
                 to="/login"
                 className="nav-link"
                 onClick={() => {
@@ -259,16 +271,6 @@ function App() {
                 }}
               >
                 {currentUser ? "Logout" : "Login"}
-              </Link>
-            </Nav.Link>
-            <Nav.Link>
-              {" "}
-              <Link
-                to="/about"
-                className="nav-link"
-                onClick={() => setExpanded(false)}
-              >
-                About
               </Link>
             </Nav.Link>
             <Nav.Link>

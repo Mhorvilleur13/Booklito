@@ -15,6 +15,10 @@ code {
 .navbar {
   background-color: #2f4990;
 }
+.expanded {
+  position: absolute;
+  right: 30px;
+}
 .nav-link {
   color: white !important;
   margin-left: 10px;
