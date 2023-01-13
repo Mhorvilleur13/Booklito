@@ -70,7 +70,6 @@ function App() {
   const navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
   const { currentUser } = useContext(AuthContext);
-  const [bookletsWithout, setBookletsWithout] = useState([]);
 
   const register = async () => {
     if (confirmPassword !== registerPassword) {
