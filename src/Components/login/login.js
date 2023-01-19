@@ -23,35 +23,37 @@ const Login = ({ logout, login }) => {
     e.target.reset();
   };
   return (
-    <div className="row login-page">
-      <div className="col-10  col-sm-8 col-md-6 col-lg-4 mx-auto mt-5 border ">
-        <form onSubmit={handleSubmit(onSubmit)} className="login form-group">
-          <h3 className="mt-3">Login</h3>
-          <input
-            placeholder="Email..."
-            onChange={(event) => setLoginEmail(event.target.value)}
-          />
-          <input
-            className="mt-3"
-            placeholder="Password..."
-            type="password"
-            onChange={(event) => setLoginPassword(event.target.value)}
-          />
-          <button className="mt-3 mb-2 btn btn-primary" type="submit">
-            Login
-          </button>
-          <p>
-            Don't have an account? <Link to="/register">Sign up</Link>
-          </p>
-        </form>
+    <div className="login-container">
+      <div className="row login-page mx-2 my-1">
+        <div className="col-10  col-sm-8 col-md-6 col-lg-4 mx-auto mb-1 border login-div">
+          <form onSubmit={handleSubmit(onSubmit)} className="login form-group">
+            <h3 className="mt-3">Login</h3>
+            <input
+              placeholder="Email..."
+              onChange={(event) => setLoginEmail(event.target.value)}
+            />
+            <input
+              className="mt-3"
+              placeholder="Password..."
+              type="password"
+              onChange={(event) => setLoginPassword(event.target.value)}
+            />
+            <button className="mt-3 mb-2 btn btn-primary" type="submit">
+              Login
+            </button>
+            <p>
+              Don't have an account? <Link to="/register">Sign up</Link>
+            </p>
+          </form>
+        </div>
       </div>
-      <div className="login mt-4">
+      {/* <div className="login mt-4">
         <h4>User logged in:</h4>
         {currentUser?.email}
         <button className="mt-4 mb-4" onClick={logout}>
           Sign out
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

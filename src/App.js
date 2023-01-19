@@ -211,7 +211,7 @@ function App() {
   //   getBookletsDb();
   // }, []);
   return (
-    <div className="mt-4 container-fluid page-container">
+    <div className="mt-2 page-container container-fluid p-0">
       <Navbar
         className="navbar"
         expanded={expanded}
