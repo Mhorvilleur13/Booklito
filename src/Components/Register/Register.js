@@ -62,7 +62,7 @@ const Register = ({ register, passwordError }) => {
               Create User
             </button>
             <p>
-              Already a user? <Link to="/">Login</Link>
+              Already a user? <Link to="/login">Login</Link>
             </p>
           </form>
         </div>

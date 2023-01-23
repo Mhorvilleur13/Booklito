@@ -275,7 +275,7 @@ function App() {
             <Nav.Link>
               {" "}
               <Link
-                to="/register"
+                to="/"
                 className="nav-link"
                 onClick={() => setExpanded(false)}
               >
@@ -325,7 +325,7 @@ function App() {
             }
           />
           <Route
-            path="/register"
+            path="/"
             element={
               <Register passwordError={passwordError} register={register} />
             }
