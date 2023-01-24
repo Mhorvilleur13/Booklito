@@ -6,6 +6,7 @@ import {
   registerPasswordState as registerPasswordAtom,
   loginEmailState as loginEmailAtom,
   loginPasswordState as loginPasswordAtom,
+  loginErrorState as loginErrorAtom,
   confirmationPasswordState as confirmationPasswordAtom,
 } from "../../atom";
 import { auth } from "../../firebase-config";
@@ -16,7 +17,7 @@ import { Link, useNavigate } from "react-router-dom";
 const Login = ({ logout, login }) => {
   const [loginEmail, setLoginEmail] = useRecoilState(loginEmailAtom);
   const [loginPassword, setLoginPassword] = useRecoilState(loginPasswordAtom);
-  const { currentUser } = useContext(AuthContext);
+  const [loginError] = useRecoilValue(loginErrorAtom);
   const { handleSubmit } = useForm();
   const onSubmit = (data, e) => {
     login();
@@ -38,6 +39,7 @@ const Login = ({ logout, login }) => {
               type="password"
               onChange={(event) => setLoginPassword(event.target.value)}
             />
+            {loginError && <p style={{ color: "red" }}>Failed to Login</p>}
             <button className="mt-3 mb-2 btn btn-primary" type="submit">
               Login
             </button>
@@ -47,13 +49,6 @@ const Login = ({ logout, login }) => {
           </form>
         </div>
       </div>
-      {/* <div className="login mt-4">
-        <h4>User logged in:</h4>
-        {currentUser?.email}
-        <button className="mt-4 mb-4" onClick={logout}>
-          Sign out
-        </button>
-      </div> */}
     </div>
   );
 };

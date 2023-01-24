@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useRecoilState, atom, useRecoilValue } from "recoil";
 import "../../index.css";
 import {
@@ -7,20 +7,18 @@ import {
   loginEmailState as loginEmailAtom,
   loginPasswordState as loginPasswordAtom,
   confirmationPasswordState as confirmationPasswordAtom,
+  registerErrorState as registerErrorAtom,
 } from "../../atom";
-import { auth } from "../../firebase-config";
-import { AuthContext } from "../../Auth";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
-const Register = ({ register, passwordError }) => {
+const Register = ({ register, passwordError, registerError }) => {
   const [registerEmail, setRegisterEmail] = useRecoilState(registerEmailAtom);
   const [registerPassword, setRegisterPassword] =
     useRecoilState(registerPasswordAtom);
   const [confirmPassword, setConfirmPassword] = useRecoilState(
     confirmationPasswordAtom
   );
-  const { currentUser } = useContext(AuthContext);
   const { handleSubmit } = useForm();
 
   const onRegisterSubmit = (data, e) => {
@@ -40,6 +38,12 @@ const Register = ({ register, passwordError }) => {
               <div className="alert alert-danger" role="alert">
                 {" "}
                 Passwords don't match{" "}
+              </div>
+            )}
+            {registerError && (
+              <div className="alert alert-danger" role="alert">
+                {" "}
+                Failed to Register{" "}
               </div>
             )}
             <input

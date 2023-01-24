@@ -53,6 +53,11 @@ export const confirmationPasswordState = atom({
   default: "",
 });
 
+export const registerErrorState = atom({
+  key: "register-error",
+  default: "",
+});
+
 export const loginEmailState = atom({
   key: "login-email",
   default: " ",
@@ -61,6 +66,11 @@ export const loginEmailState = atom({
 export const loginPasswordState = atom({
   key: "login-password",
   default: " ",
+});
+
+export const loginErrorState = atom({
+  key: "login-error",
+  default: "",
 });
 
 export const userEmailState = atom({
