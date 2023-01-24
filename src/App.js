@@ -17,6 +17,8 @@ import {
   loginPasswordState as loginPasswordAtom,
   userEmailState as userEmailAtom,
   confirmationPasswordState as confirmationPasswordAtom,
+  loginErrorState as loginErrorAtom,
+  registerErrorState as registerErrorAtom,
 } from "./atom";
 // Import the styles
 import "@react-pdf-viewer/core/lib/styles/index.css";
@@ -56,16 +58,19 @@ function App() {
   const [booklets, setBooklets] = useRecoilState(bookletsAtom);
   const [title, setTitle] = useRecoilState(titleAtom);
   const [teacher, setTeacher] = useRecoilState(teacherAtom);
+  //Regisration States
   const [registerEmail, setRegisterEmail] = useRecoilState(registerEmailAtom);
   const [registerPassword, setRegisterPassword] =
     useRecoilState(registerPasswordAtom);
-  const [loginEmail, setLoginEmail] = useRecoilState(loginEmailAtom);
-  const [loginPassword, setLoginPassword] = useRecoilState(loginPasswordAtom);
-  const allowedFiles = ["application/pdf"];
-  const [userEmail, setUserEmail] = useRecoilState(userEmailAtom);
+  const [registerError, setRegisterError] = useRecoilState(registerErrorAtom);
   const [confirmPassword, setConfirmPassword] = useRecoilState(
     confirmationPasswordAtom
   );
+  const [loginEmail, setLoginEmail] = useRecoilState(loginEmailAtom);
+  const [loginPassword, setLoginPassword] = useRecoilState(loginPasswordAtom);
+  const [loginError, setLoginError] = useRecoilState(loginErrorAtom);
+  const allowedFiles = ["application/pdf"];
+  const [userEmail, setUserEmail] = useRecoilState(userEmailAtom);
   const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
@@ -77,15 +82,18 @@ function App() {
     }
     try {
       setPasswordError("");
+      setRegisterError("");
       const user = await createUserWithEmailAndPassword(
         auth,
         registerEmail,
         registerPassword
       );
+      navigate("/form");
     } catch (error) {
+      setRegisterError("Failed to Register");
+      console.log("error");
       console.log(error.message);
     }
-    navigate("/Home");
   };
 
   const login = async () => {
@@ -96,6 +104,7 @@ function App() {
         loginPassword
       );
     } catch (error) {
+      setLoginError("Failed to Login");
       console.log(error.message);
     }
     navigate("/booklets");
@@ -327,7 +336,11 @@ function App() {
           <Route
             path="/"
             element={
-              <Register passwordError={passwordError} register={register} />
+              <Register
+                passwordError={passwordError}
+                register={register}
+                registerError={registerError}
+              />
             }
           ></Route>
           <Route path="/about" element={<About />}></Route>
