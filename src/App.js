@@ -22,6 +22,7 @@ import {
 } from "./atom";
 // Import the styles
 import "@react-pdf-viewer/core/lib/styles/index.css";
+import brochure from "../src/Assets/images/brochure.png";
 //import components
 import Booklets from "./Components/Booklets/Booklets.js";
 import Booklet from "./Components/Booklet/Booklet";
@@ -229,7 +230,9 @@ function App() {
         variant="dark"
       >
         {" "}
-        <Navbar.Brand>Logo</Navbar.Brand>
+        <Navbar.Brand>
+          <img src={brochure} height="35px" width="35px" />{" "}
+        </Navbar.Brand>
         <Navbar.Toggle
           aria-controls="responsive-navbar-nav"
           onClick={() => setExpanded(expanded ? false : "expanded")}
