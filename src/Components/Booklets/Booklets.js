@@ -32,7 +32,8 @@ const Booklets = ({ booklets, editBooklet, deleteBooklet }) => {
   };
   const shareBookletUrl = (id) => {
     setCopied(false);
-    const url = "http://localhost:3000/booklet/" + id;
+    //const url = "http://localhost:3000/booklet/" + id;
+    const url = "https://essay-booklet.web.app/" + id;
     setBookletUrl(url);
   };
   return (
