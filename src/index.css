@@ -74,22 +74,15 @@ display: none;
   border: 1px solid black;
   border-radius: 20px;
 }
-.prev-btn {
-  height: 30px;
-  width: 30px;
-}
 
-.next-btn {
-  height: 30px;
-  width: 30px;
-}
 
 .carousel-control-prev, .carousel-control-next, .carousel-indicators {
   filter: invert(100%);
 }
 
-.carousel-control-next, .carousel-control-prev {
+body .carousel-control-next, body .carousel-control-prev {
   height: 20%;
+  top: 200px; 
 }
 
 .carousel-indicators {
