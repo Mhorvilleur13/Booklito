@@ -88,6 +88,10 @@ display: none;
   filter: invert(100%);
 }
 
+.carousel-control-next, .carousel-control-prev {
+  height: 20%;
+}
+
 .carousel-indicators {
   visibility: hidden;
 }
