@@ -50,7 +50,6 @@ import {
 } from "firebase/auth";
 import { AuthContext } from "./Auth";
 import { where, query } from "firebase/firestore";
-import { getDatabase, ref, set, onValue, child, get } from "firebase/database";
 
 function App() {
   const bookletsCollectionRef = collection(db, "Booklet");
@@ -140,6 +139,10 @@ function App() {
       return unsubscribe;
     }
   }, [userEmail]);
+
+  useEffect(() => {
+    navigate("/booklets");
+  }, []);
 
   function createUUID() {
     let dt = new Date().getTime();

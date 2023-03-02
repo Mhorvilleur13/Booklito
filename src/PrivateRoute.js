@@ -7,11 +7,10 @@ import { auth } from "./firebase-config";
 import { userEmailState as userEmailAtom, userEmailState } from "./atom";
 
 const PrivateRoute = ({ children }) => {
-  //const { currentUser } = useContext(AuthContext);
-  const [currentUser, setCurrentUser] = useState(); // <-- initially undefined
+  const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => setCurrentUser(user)); // <-- null or user object
+    const unsub = onAuthStateChanged(auth, (user) => setCurrentUser(user));
     return unsub;
   }, []);
   if (currentUser === undefined) return null;

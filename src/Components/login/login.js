@@ -44,7 +44,7 @@ const Login = ({ logout, login }) => {
               Login
             </button>
             <p>
-              Don't have an account? <Link to="/">Sign up</Link>
+              Don't have an account? <Link to="/register">Sign up</Link>
             </p>
           </form>
         </div>
