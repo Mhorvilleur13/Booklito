@@ -10,7 +10,9 @@ This project is designed to make the process of compiling and sharing student es
 - **Secure sharing**: Once the booklet is compiled, teachers can easily share it with students, parents, and other interested parties with a unique URL.
 - **Easy to use**: Once someone receives the URL, they can immediately see the booklet without having to register or navigate the page.
 
-## Technologies
+![Website Screenshot](src/Assets/images/ScreenShotBooklet.png)
+
+### Technologies
 
 Project is created with:
 
