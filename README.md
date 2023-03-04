@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Booklet
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project allows teachers to compile students' essays into a digital booklet and share it is easily. Booklet was created with React and Firebase.
 
 ## Available Scripts
 
