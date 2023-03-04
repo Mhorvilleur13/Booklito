@@ -107,7 +107,7 @@ function App() {
       setLoginError("Failed to Login");
       console.log(error.message);
     }
-    navigate("/booklets");
+    navigate("/");
   };
 
   const logout = async () => {
@@ -139,10 +139,6 @@ function App() {
       return unsubscribe;
     }
   }, [userEmail]);
-
-  useEffect(() => {
-    navigate("/booklets");
-  }, []);
 
   function createUUID() {
     let dt = new Date().getTime();
@@ -245,7 +241,7 @@ function App() {
             <Nav.Link>
               {" "}
               <Link
-                to="/booklets"
+                to="/"
                 className="nav-link"
                 onClick={() => setExpanded(false)}
               >
@@ -290,7 +286,7 @@ function App() {
             <Nav.Link>
               {" "}
               <Link
-                to="/"
+                to="/register"
                 className="nav-link"
                 onClick={() => setExpanded(false)}
               >
@@ -303,7 +299,7 @@ function App() {
       <div className="row">
         <Routes>
           <Route
-            path="booklets"
+            path="/"
             element={
               <PrivateRoute>
                 <Booklets
@@ -340,7 +336,7 @@ function App() {
             }
           />
           <Route
-            path="/"
+            path="/register"
             element={
               <Register
                 passwordError={passwordError}
