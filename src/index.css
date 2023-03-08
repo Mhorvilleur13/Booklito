@@ -19,12 +19,25 @@ code {
 .navbar {
   background-color: #2f4990;
 }
+
+.text-logo {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: white;
+}
+
+.navbar-brand a {
+  text-decoration: none;
+}
+
+
+
 .expanded {
   position: absolute;
   right: 30px;
 }
-.nav-link {
-  color: white !important;
+
+.navbar-collapse a {
+  color: white;
   margin-left: 10px;
 }
 .navbar-brand {
@@ -35,6 +48,9 @@ code {
   margin-right: 30px;
 }
 
+.content-container {
+  padding-top: 70px;
+}
 
 
 

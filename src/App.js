@@ -224,13 +224,16 @@ function App() {
       <Navbar
         className="navbar"
         expanded={expanded}
-        sticky="top"
+        fixed="top"
         expand="lg"
         variant="dark"
       >
         {" "}
         <Navbar.Brand>
-          <img src={brochure} height="35px" width="35px" />{" "}
+          <Link to="/" className="logo-container">
+            <img src={brochure} height="35px" width="35px" />
+            <span className="ms-1 text-logo"> Booklito </span>
+          </Link>
         </Navbar.Brand>
         <Navbar.Toggle
           aria-controls="responsive-navbar-nav"
@@ -296,7 +299,7 @@ function App() {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <div className="row">
+      <div className="row content-container">
         <Routes>
           <Route
             path="/"
