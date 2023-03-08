@@ -47,7 +47,15 @@ const Booklets = ({ booklets, editBooklet, deleteBooklet }) => {
                     <h4 className="text-center">Cover</h4>
                     <div className="cover">
                       <img src={ELFlogo} className="cover-logo"></img>
-                      <h1 className="text-secondary">{booklet.title}</h1>
+                      {booklet.title.length > 23 ? (
+                        <h2 className="text-secondary text-center">
+                          {booklet.title}
+                        </h2>
+                      ) : (
+                        <h1 className="text-secondary text-center">
+                          {booklet.title}
+                        </h1>
+                      )}
                       <br></br>
                       <h5>By</h5>
                       <h3 className="text-secondary">{booklet.teacher}</h3>

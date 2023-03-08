@@ -36,7 +36,15 @@ const Booklet = () => {
               <h4 className="text-center">Cover</h4>
               <div className="cover">
                 <img src={ELFlogo} className="cover-logo"></img>
-                <h1 className="text-secondary">{singleBooklet[0].title}</h1>
+                {singleBooklet.title.length > 23 ? (
+                  <h2 className="text-secondary text-center">
+                    {singleBooklet.title}
+                  </h2>
+                ) : (
+                  <h1 className="text-secondary text-center">
+                    {singleBooklet.title}
+                  </h1>
+                )}
                 <br></br>
                 <h5>By</h5>
                 <h3 className="text-secondary">{singleBooklet[0].teacher}</h3>
