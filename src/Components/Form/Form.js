@@ -10,6 +10,7 @@ import {
 } from "../../atom";
 import { useForm } from "react-hook-form";
 import bincopy from "../../Assets/images/bincopy.png";
+import { useNavigate } from "react-router-dom";
 
 const Form = ({ handleFile, createBookletDb, deletePdfFromPreview }) => {
   const [allPdfFiles, setAllPdfFiles] = useRecoilState(allPdfFilesAtom);
@@ -19,6 +20,7 @@ const Form = ({ handleFile, createBookletDb, deletePdfFromPreview }) => {
   const [teacher, setTeacher] = useRecoilState(teacherAtom);
   const { handleSubmit } = useForm();
   const [pdfError, setPdfError] = useState("");
+  const navigate = useNavigate();
 
   const onSubmit = (data, e) => {
     const newBooklet = {
@@ -34,6 +36,7 @@ const Form = ({ handleFile, createBookletDb, deletePdfFromPreview }) => {
     setBooklets(newBooklets);
     createBookletDb();
     setCurrentPdfFiles([]);
+    navigate("/");
     e.target.reset();
   };
 
