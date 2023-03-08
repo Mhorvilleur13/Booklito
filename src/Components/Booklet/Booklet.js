@@ -36,13 +36,13 @@ const Booklet = () => {
               <h4 className="text-center">Cover</h4>
               <div className="cover">
                 <img src={ELFlogo} className="cover-logo"></img>
-                {singleBooklet.title.length > 23 ? (
+                {singleBooklet[0].title.length > 23 ? (
                   <h2 className="text-secondary text-center">
-                    {singleBooklet.title}
+                    {singleBooklet[0].title}
                   </h2>
                 ) : (
                   <h1 className="text-secondary text-center">
-                    {singleBooklet.title}
+                    {singleBooklet[0].title}
                   </h1>
                 )}
                 <br></br>
