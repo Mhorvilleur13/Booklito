@@ -33,7 +33,6 @@ const Booklet = () => {
         ) : (
           <Carousel interval={null}>
             <Carousel.Item>
-              <h4 className="text-center">Cover</h4>
               <div className="cover">
                 <img src={ELFlogo} className="cover-logo"></img>
                 {singleBooklet[0].title.length > 23 ? (

@@ -44,7 +44,6 @@ const Booklets = ({ booklets, editBooklet, deleteBooklet }) => {
               return (
                 <Carousel interval={null} className="mt-5">
                   <Carousel.Item>
-                    <h4 className="text-center">Cover</h4>
                     <div className="cover">
                       <img src={ELFlogo} className="cover-logo"></img>
                       {booklet.title.length > 23 ? (
