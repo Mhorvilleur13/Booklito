@@ -8,9 +8,9 @@ const About = () => {
       </h2>
       <p className="mt-2">
         Giving students the opportunity to showcase their essays is essential to
-        the writing process. Booklet gives you the chance compile your students'
-        work into a digital booklet in order to make the peer review process
-        much easier.{" "}
+        the writing process. Booklito gives you the chance compile your
+        students' work into a digital booklet in order to make the peer review
+        process much easier.{" "}
       </p>
     </div>
   );

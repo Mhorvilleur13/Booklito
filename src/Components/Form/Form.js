@@ -45,26 +45,29 @@ const Form = ({ handleFile, createBookletDb, deletePdfFromPreview }) => {
       <div className="col-6 text-center mx-auto mt-5 mb-5 border">
         <form onSubmit={handleSubmit(onSubmit)} className="form-group">
           <label className="mt-3">
-            <h5>Upload PDF</h5>
+            <h3>Create a New Booklet</h3>
           </label>
           <br></br>
-          <div className="text-secondary">
+          <div className="text-secondary mt-3">
             <h5>Title</h5>
             <input
               type="text"
               className="form-control"
+              placeholder="E.g. Mandatory School Uniforms"
               onChange={(e) => setTitle(e.target.value)}
             ></input>
           </div>
-          <div className="text-secondary mt-3">
+          <div className="text-secondary mt-4">
             <h5>Teacher Name</h5>
             <input
               type="text"
               className="form-control"
+              placeholder="E.g. Mr. Jones"
               onChange={(e) => setTeacher(e.target.value)}
             ></input>
           </div>
-          <div className="mt-3">
+          <div className="mt-3 text-secondary">
+            <h5>Upload Student Work as PDF</h5>
             <input
               type="file"
               className="form-control"
